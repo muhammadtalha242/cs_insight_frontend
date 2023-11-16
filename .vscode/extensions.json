@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "mattpocock.pretty-typescript-errors",
+    "eamodio.gitlens",
+    "esbenp.prettier-vscode"
+  ]
+}
