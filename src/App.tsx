@@ -4,6 +4,7 @@ import { ConfigProvider, Layout } from "antd";
 import "./App.css";
 import Home from "./features/home";
 import { Header } from "./components/Header";
+import { Footer } from "antd/es/layout/layout";
 
 const App: React.FC = () => (
   <ConfigProvider
@@ -21,6 +22,9 @@ const App: React.FC = () => (
       <Header />
 
       <Home />
+      <Footer style={{ textAlign: "center" }}>
+        Ant Design ©2023 Created by Ant UED
+      </Footer>
     </Layout>
   </ConfigProvider>
 );
