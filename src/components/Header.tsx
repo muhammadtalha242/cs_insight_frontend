@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Button, Layout } from "antd";
 
 import { black80, white80 } from "../constants/colors";
-import { Logo } from "../assets/icons/logo";
+import { Navbar } from "./Navbar";
 
 const { Header: HeaderAntd } = Layout;
 const HeaderComponets = styled(HeaderAntd)`
@@ -13,8 +13,9 @@ const HeaderComponets = styled(HeaderAntd)`
 
 export const Header: React.FC = () => {
   return (
-    <HeaderComponets>
-      <Button icon={<Logo />}></Button>
+    <HeaderComponets style={{ display: "flex", alignItems: "center" }}>
+      <Button style={{ border: "none" }}> Logo</Button>
+      <Navbar />
     </HeaderComponets>
   );
 };
