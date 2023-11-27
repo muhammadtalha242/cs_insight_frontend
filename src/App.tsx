@@ -30,7 +30,7 @@ const Routes = createBrowserRouter([
     element: <Home />,
   },
   {
-    path: "/search",
+    path: "/search/:dataSet",
     element: <Search />,
   },
 ]);
