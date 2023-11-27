@@ -5,11 +5,11 @@ import { StateProps } from "../features/home/Home";
 
 const options = [
   {
-    value: "Papers",
+    value: "papers",
     label: "Papers",
   },
   {
-    value: "Authors",
+    value: "authors",
     label: "Authors",
   },
 ];
