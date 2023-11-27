@@ -1,11 +1,39 @@
 import React from "react";
 import { ConfigProvider, Layout } from "antd";
+import { Footer } from "antd/es/layout/layout";
+import styled from "styled-components";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+import Home from "./features/home";
+import Search from "./features/search";
 
 import "./App.css";
-import Home from "./features/home";
-import { Header } from "./components/Header";
-import { Footer } from "antd/es/layout/layout";
 
+const { Content } = Layout;
+
+const ContentStyledContainer = styled(Content)`
+  height: 100vh;
+`;
+
+const FooterStyled = styled(Footer)`
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+`;
+const Routes = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+  },
+  {
+    path: "/search",
+    element: <Search />,
+  },
+]);
 const App: React.FC = () => (
   <ConfigProvider
     theme={{
@@ -19,12 +47,10 @@ const App: React.FC = () => (
     }}
   >
     <Layout>
-      <Header />
-
-      <Home />
-      <Footer style={{ textAlign: "center" }}>
-        Ant Design ©2023 Created by Ant UED
-      </Footer>
+      <ContentStyledContainer>
+        <RouterProvider router={Routes} />
+      </ContentStyledContainer>
+      <FooterStyled>Footer</FooterStyled>
     </Layout>
   </ConfigProvider>
 );
