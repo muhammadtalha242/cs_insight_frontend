@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Layout, Tabs } from "antd";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import type { TabsProps } from "antd";
 
 import CombinedInput from "../../components/CombinedInput";
@@ -18,7 +18,9 @@ const ContentStyledContainer = styled(Content)``;
 export const Search: React.FC = () => {
   const [showSearchResults, setShowSearchResults] = useState(true);
   const [open, setOpen] = useState(false);
-
+  const { dataSet } = useParams<"dataSet">();
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get("query");
   const showDrawer = () => {
     setOpen(true);
   };
@@ -35,8 +37,6 @@ export const Search: React.FC = () => {
     );
   };
 
-  const HandleChangeView = () => setShowSearchResults(!showSearchResults);
-
   const onChange = (key: string) => {
     console.log(key);
   };
@@ -46,6 +46,7 @@ export const Search: React.FC = () => {
       key: "search-results",
       label: "Search Results",
       children: <SearchResults />,
+      disabled: true,
     },
     {
       key: "analytics",
@@ -58,7 +59,10 @@ export const Search: React.FC = () => {
     <ContentStyledContainer>
       <Header>
         <CombinedInput
-          initialValues={{ dataSet: "Papers", query: "6G" }}
+          initialValues={{
+            dataSet: dataSet || "papers",
+            query: query || "all",
+          }}
           onSubmit={onSubmit}
         />
         <Button type="primary" onClick={showDrawer}>
@@ -67,11 +71,7 @@ export const Search: React.FC = () => {
         <Drawer isOpen={open} onClose={onClose} />
       </Header>
       <section style={{ paddingLeft: "50px", paddingRight: "20px" }}>
-        <Tabs
-          defaultActiveKey="search-results"
-          items={items}
-          onChange={onChange}
-        />
+        <Tabs defaultActiveKey="analytics" items={items} onChange={onChange} />
       </section>
     </ContentStyledContainer>
   );
