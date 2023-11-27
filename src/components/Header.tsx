@@ -1,21 +1,25 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import styled from "styled-components";
 import { Button, Layout } from "antd";
 
-import { black80, white80 } from "../constants/colors";
-import { Navbar } from "./Navbar";
+import { black80 } from "../constants/colors";
 
 const { Header: HeaderAntd } = Layout;
 const HeaderComponets = styled(HeaderAntd)`
-  background-color: ${white80};
   border-bottom: 1px ${black80} solid;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 20px;
 `;
 
-export const Header: React.FC = () => {
+const Header: React.FC<{ children?: ReactNode }> = ({ children }) => {
   return (
-    <HeaderComponets style={{ display: "flex", alignItems: "center" }}>
-      <Button style={{ border: "none" }}> Logo</Button>
-      <Navbar />
+    <HeaderComponets>
+      <Button style={{ border: "none" }}>Logo</Button>
+      {children}
     </HeaderComponets>
   );
 };
+
+export default Header;
