@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Input, Select } from "antd";
+import { Button, Input, Select, Space } from "antd";
 import styled from "styled-components";
 import { StateProps } from "../features/home/Home";
 
@@ -19,7 +19,7 @@ type CombinedInputProps = {
   onSubmit: (values: StateProps) => void;
 };
 
-const CombinedInputStyledContainer = styled.div`
+const CombinedInputStyledContainer = styled(Space.Compact)`
   display: flex;
   flex-direction: row;
   padding: 16px;
@@ -41,7 +41,7 @@ const CombinedInput: React.FC<CombinedInputProps> = ({
   };
 
   return (
-    <CombinedInputStyledContainer id="combined-inputs">
+    <CombinedInputStyledContainer id="combined-inputs" block>
       <Select
         defaultValue="Papers"
         options={options}
