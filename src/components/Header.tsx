@@ -1,10 +1,11 @@
 import React, { ReactNode } from "react";
 import styled from "styled-components";
-import { Button, Layout } from "antd";
+import { Layout } from "antd";
 
 import { black80 } from "../constants/colors";
 
 const { Header: HeaderAntd } = Layout;
+
 const HeaderComponets = styled(HeaderAntd)`
   border-bottom: 1px ${black80} solid;
   display: flex;
@@ -14,12 +15,7 @@ const HeaderComponets = styled(HeaderAntd)`
 `;
 
 const Header: React.FC<{ children?: ReactNode }> = ({ children }) => {
-  return (
-    <HeaderComponets>
-      <Button style={{ border: "none" }}>Logo</Button>
-      {children}
-    </HeaderComponets>
-  );
+  return <HeaderComponets>{children}</HeaderComponets>;
 };
 
 export default Header;
