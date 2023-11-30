@@ -21,3 +21,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+public/paper-data.json
+public/paper-count-per-year.json
+public/aapl.json
