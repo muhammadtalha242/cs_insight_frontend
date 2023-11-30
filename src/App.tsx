@@ -3,6 +3,8 @@ import { ConfigProvider, Layout } from "antd";
 import { Footer } from "antd/es/layout/layout";
 import styled from "styled-components";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { FilterProvider } from "./context/FilterContext";
+import { Provider as QueryContextProvider } from "./context/QueryContext";
 
 import Home from "./features/home";
 import Search from "./features/search";
@@ -48,7 +50,11 @@ const App: React.FC = () => (
   >
     <Layout>
       <ContentStyledContainer>
-        <RouterProvider router={Routes} />
+        <QueryContextProvider>
+          <FilterProvider>
+            <RouterProvider router={Routes} />
+          </FilterProvider>
+        </QueryContextProvider>
       </ContentStyledContainer>
       <FooterStyled>Footer</FooterStyled>
     </Layout>
