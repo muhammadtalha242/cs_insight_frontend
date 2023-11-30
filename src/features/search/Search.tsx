@@ -1,40 +1,40 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Layout, Tabs } from "antd";
 import styled from "styled-components";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import type { TabsProps } from "antd";
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 
 import CombinedInput from "../../components/CombinedInput";
 import Header from "../../components/Header";
 import { StateProps } from "../home/Home";
 import Analytics from "./analytics";
 import SearchResults from "./searchResults";
-import Drawer from "../../components/Drawer";
+import Filter from "../filers";
+import {
+  QueryContext,
+  setQuery,
+  resetFilters,
+  resetQueryState,
+} from "../../context/QueryContext";
 
 const { Content } = Layout;
 
 const ContentStyledContainer = styled(Content)``;
 
 export const Search: React.FC = () => {
-  const [showSearchResults, setShowSearchResults] = useState(true);
-  const [open, setOpen] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const { dataSet } = useParams<"dataSet">();
   const [searchParams] = useSearchParams();
   const query = searchParams.get("query");
-  const showDrawer = () => {
-    setOpen(true);
-  };
-
-  const onClose = () => {
-    setOpen(false);
-  };
 
   const navigate = useNavigate();
+  const { state, dispatch } = useContext(QueryContext);
+  console.log("state", state);
 
   const onSubmit = (updatedValues: StateProps) => {
-    navigate(
-      `/search?dataSet=${updatedValues.dataSet}&query=${updatedValues.query}`
-    );
+    setQuery(dispatch)(updatedValues);
+    navigate(`/search/${updatedValues.dataSet}&query=${updatedValues.query}`);
   };
 
   const onChange = (key: string) => {
@@ -55,24 +55,52 @@ export const Search: React.FC = () => {
     },
   ];
 
+  const sendHome = () => {
+    resetFilters(dispatch)();
+    resetQueryState(dispatch)();
+    navigate(`/`);
+  };
+
   return (
     <ContentStyledContainer>
       <Header>
+        <Button style={{ border: "none" }} onClick={sendHome}>
+          Logo
+        </Button>
         <CombinedInput
           initialValues={{
-            dataSet: dataSet || "papers",
-            query: query || "all",
+            dataSet: state.dataSet,
+            query: state.query,
           }}
           onSubmit={onSubmit}
         />
-        <Button type="primary" onClick={showDrawer}>
-          Filters
-        </Button>
-        <Drawer isOpen={open} onClose={onClose} />
+        <Button
+          type="text"
+          icon={
+            collapsed ? (
+              <MenuUnfoldOutlined style={{ color: "#08c" }} />
+            ) : (
+              <MenuFoldOutlined style={{ color: "#08c" }} />
+            )
+          }
+          onClick={() => setCollapsed(!collapsed)}
+          style={{
+            fontSize: "16px",
+            width: 64,
+            height: 64,
+          }}
+        />
       </Header>
-      <section style={{ paddingLeft: "50px", paddingRight: "20px" }}>
-        <Tabs defaultActiveKey="analytics" items={items} onChange={onChange} />
-      </section>
+      <Layout hasSider>
+        <section style={{ paddingLeft: "50px", paddingRight: "20px" }}>
+          <Tabs
+            defaultActiveKey="analytics"
+            items={items}
+            onChange={onChange}
+          />
+        </section>
+        <Filter collapsed={collapsed} />
+      </Layout>
     </ContentStyledContainer>
   );
 };
