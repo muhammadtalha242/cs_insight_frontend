@@ -7,7 +7,8 @@ const SiderContainer = styled.aside`
   background-color: white;
   border-left: 1px solid #ddd;
   transition: width 0.3s ease;
-  min-width: 250px;
+  min-width: 20%;
+  height: 100%;
 
   &.collapsed {
     width: 0;
