@@ -1,7 +1,9 @@
 import styled from "styled-components";
+import { Spacing } from "../../themes";
 
 export const FilterContentContainer = styled.div`
-    padding: 16px 24px;
+    padding: ${Spacing.large} ${Spacing.larger};
+    height: 100%;
 `
 
 export const InputNumberFilterContainer = styled.div`
@@ -15,7 +17,7 @@ export const SelectFilterContainer = styled.div`
 
 export const LabelFilterContainer = styled.label`
     text-align: start;
-    margin-bottom: 8px;
+    margin-bottom: ${Spacing.medium};
     display: flex;
     justify-content: space-between;
     font-size: medium;
