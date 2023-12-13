@@ -1,0 +1,9 @@
+export const small = `${10 / 16}rem` as const;
+export const smaller = `${12 / 16}rem` as const;
+export const medium = `${14 / 16}rem` as const;
+export const larger = `${16 / 16}rem` as const;
+export const large = `${18 / 16}rem` as const;
+export const x_large = `${20 / 16}rem` as const;
+export const xx_large = `${24 / 16}rem` as const;
+export const xxx_large = `${32 / 16}rem` as const;
+export const xxxx_large = `${48 / 16}rem` as const;

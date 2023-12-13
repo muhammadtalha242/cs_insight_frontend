@@ -1,0 +1,9 @@
+export const thin = `${1 / 16}rem` as const;
+export const tiny = `${2 / 16}rem` as const;
+export const small = `${4 / 16}rem` as const;
+export const smaller = `${6 / 16}rem` as const;
+export const medium = `${8 / 16}rem` as const;
+export const larger = `${16 / 16}rem` as const;
+export const large = `${24 / 16}rem` as const;
+export const largest = `${48 / 16}rem` as const;
+export const huge = `${96 / 16}rem` as const;
