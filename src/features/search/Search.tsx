@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Button, Layout, Tabs } from "antd";
-import styled from "styled-components";
+import { Button } from "antd";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import type { TabsProps } from "antd";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
@@ -17,10 +16,11 @@ import {
   resetFilters,
   resetQueryState,
 } from "../../context/QueryContext";
-
-const { Content } = Layout;
-
-const ContentStyledContainer = styled(Content)``;
+import {
+  MainContentContainer,
+  SearchLayoutContainer,
+  VisualizationsTabContainer,
+} from "./Search.styles";
 
 export const Search: React.FC = () => {
   const [collapsed, setCollapsed] = useState(true);
@@ -62,7 +62,7 @@ export const Search: React.FC = () => {
   };
 
   return (
-    <ContentStyledContainer>
+    <MainContentContainer>
       <Header>
         <Button style={{ border: "none" }} onClick={sendHome}>
           Logo
@@ -91,16 +91,14 @@ export const Search: React.FC = () => {
           }}
         />
       </Header>
-      <Layout hasSider>
-        <section style={{ paddingLeft: "50px", paddingRight: "20px" }}>
-          <Tabs
-            defaultActiveKey="analytics"
-            items={items}
-            onChange={onChange}
-          />
-        </section>
+      <SearchLayoutContainer>
+        <VisualizationsTabContainer
+          defaultActiveKey="analytics"
+          items={items}
+          onChange={onChange}
+        />
         <Filter collapsed={collapsed} />
-      </Layout>
-    </ContentStyledContainer>
+      </SearchLayoutContainer>
+    </MainContentContainer>
   );
 };
