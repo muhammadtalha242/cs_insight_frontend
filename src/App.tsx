@@ -13,19 +13,18 @@ import "./App.css";
 
 const { Content } = Layout;
 
-const ContentStyledContainer = styled(Content)`
-  height: 100vh;
-`;
+const ContentStyledContainer = styled(Content)``;
 
-const FooterStyled = styled(Footer)`
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background-color: #333;
-  color: #fff;
-  text-align: center;
-  padding: 10px;
-`;
+const footerStyle: React.CSSProperties = {
+  textAlign: "center",
+  color: "#fff",
+  backgroundColor: "#4096ff",
+};
+
+const layoutStyle: React.CSSProperties = {
+  display: "flex",
+};
+
 const Routes = createBrowserRouter([
   {
     path: "/",
@@ -56,7 +55,7 @@ const App: React.FC = () => (
           </FilterProvider>
         </QueryContextProvider>
       </ContentStyledContainer>
-      <FooterStyled>Footer</FooterStyled>
+      <Footer style={footerStyle}>Footer</Footer>
     </Layout>
   </ConfigProvider>
 );
