@@ -1,21 +1,19 @@
 import React, { ReactNode } from "react";
 import styled from "styled-components";
+import { Color } from "../themes";
 
 const SiderContainer = styled.aside`
-  position: fixed;
-  right: 0;
-  background-color: white;
-  border-left: 1px solid #ddd;
+  background-color: ${Color.white80};
+  border-left: 1px solid ${Color.lightSilver};
   transition: width 0.3s ease;
-  min-width: 20%;
-  height: 100%;
+  // height: 100%;
+  flex: 1;
+  transition: flex-basis 0.5s ease;
 
   &.collapsed {
     width: 0;
-    min-width: 0;
-    max-width: 0;
+    flex: 0;
     overflow: hidden;
-    transition: width 0.3s ease;
   }
 `;
 
@@ -25,7 +23,7 @@ export type SiderProps = {
 };
 const Sider: React.FC<SiderProps> = ({ children, collapsed }) => {
   return (
-    <SiderContainer className={!collapsed ? "collapsed" : ""}>
+    <SiderContainer className={collapsed ? "collapsed" : ""}>
       {children}
     </SiderContainer>
   );
