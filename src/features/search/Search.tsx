@@ -23,7 +23,7 @@ import {
 } from "./Search.styles";
 
 export const Search: React.FC = () => {
-  const [collapsed, setCollapsed] = useState(true);
+  const [collapsed, setCollapsed] = useState(false);
   const { dataSet } = useParams<"dataSet">();
   const [searchParams] = useSearchParams();
   const query = searchParams.get("query");
@@ -96,6 +96,7 @@ export const Search: React.FC = () => {
           defaultActiveKey="analytics"
           items={items}
           onChange={onChange}
+          flex={collapsed ? 1 : 4}
         />
         <Filter collapsed={collapsed} />
       </SearchLayoutContainer>
