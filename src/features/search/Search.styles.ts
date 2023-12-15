@@ -4,20 +4,21 @@ import { Size } from "../../themes";
 
 const { Content } = Layout;
 
-export const MainContentContainer = styled(Content)`
-`;
+type VisualizationsTabContainerStyleProps= {
+    flex: number;
+}
+
+export const MainContentContainer = styled(Layout)``;
 
 
-export const SearchLayoutContainer = styled.div`
+export const SearchLayoutContainer = styled(Content)`
     display: flex;
     width: 100%;
-    height: 100vh;
 `;
 
-export const VisualizationsTabContainer = styled(Tabs)`
+export const VisualizationsTabContainer= styled(Tabs)<VisualizationsTabContainerStyleProps>`
     padding: 0 ${Size.xl} 0 ${Size.lm};
-    width: 80%;
-    height: 100%;
-    min-width: 700px;
+    transition: flex-basis 0.5s ease;
+    flex: ${(props)=>props.flex}; 
 `;
 
