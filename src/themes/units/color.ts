@@ -26,6 +26,7 @@ const tangaroa = 'rgb(28,49,62)' as const;
 const turquoise = 'rgb(79,197,199)' as const;
 const violetBlue = 'rgb(123,114,198)' as const;
 const xanthic = 'rgb(230,230,28)' as const;
+const silver = 'rgb(185,187,190)' as const;
 
 export const white0 = 'rgba(255,255,255,.0)' as const;
 export const white05 = 'rgba(255,255,255,.05)' as const;
@@ -89,3 +90,5 @@ export const specialLightRed = mauvelous;
 export const specialYellow = xanthic;
 
 export const highlightYellow = rgba(straw, 0.5);
+
+export const lightSilver = rgba(silver, 0.8);
