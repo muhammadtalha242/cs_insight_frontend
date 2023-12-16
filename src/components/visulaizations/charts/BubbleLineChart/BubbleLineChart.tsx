@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useRef } from "react";
-import useComponentSize from "@rehooks/component-size";
 import * as d3 from "d3";
 
 type DataPoint = {
@@ -9,19 +8,12 @@ type DataPoint = {
 
 export interface BubbleLineChartProps {
   data: DataPoint[];
-  dimensions: { width: number; height: number };
 }
 
 type Range = [number, number];
 
-export const BubbleLineChart: React.FC<BubbleLineChartProps> = ({
-  data,
-  dimensions,
-}) => {
+export const BubbleLineChart: React.FC<BubbleLineChartProps> = ({ data }) => {
   const chartRef = useRef<SVGSVGElement | null>(null);
-  // let { width, height } = useComponentSize(chartRef);
-  // console.log("width, height", width, height);
-  const { width, height } = dimensions;
   const extentX = useMemo<Range>(
     () => d3.extent(data, (d) => d.x) as [number, number],
     [data]
@@ -30,15 +22,16 @@ export const BubbleLineChart: React.FC<BubbleLineChartProps> = ({
 
   useEffect(() => {
     if (!chartRef.current || !data.length) return;
-    if (data) {
-      drawChart();
+    if (data && chartRef.current) {
+      const containerWidth = chartRef.current.clientWidth;
+      const containerHeight = chartRef.current.clientHeight;
+      drawChart({ width: containerWidth, height: containerHeight });
     }
   }, [data]);
 
-  const drawChart = () => {
-    // width = dimensions.width;
-    // height = 680;
-    console.log("drawChart, width, height", width, height);
+  const drawChart = (dim: { width: number; height: number }) => {
+    const width = dim.width;
+    const height = 638;
 
     const marginTop = 20;
     const marginRight = 30;
@@ -197,7 +190,7 @@ export const BubbleLineChart: React.FC<BubbleLineChartProps> = ({
     }
 
     function size(text: any, path: any) {
-      const { x, y, width: w, height: h } = text.node().getBBox();
+      const { y, width: w, height: h } = text.node().getBBox();
       text.attr("transform", `translate(${-w / 2},${15 - y})`);
       path.attr(
         "d",
@@ -206,5 +199,5 @@ export const BubbleLineChart: React.FC<BubbleLineChartProps> = ({
     }
   };
 
-  return <svg ref={chartRef} width={width} height={height}></svg>;
+  return <svg ref={chartRef} style={{ width: "100%", height: "100%" }}></svg>;
 };
