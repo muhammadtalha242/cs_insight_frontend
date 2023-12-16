@@ -87,7 +87,9 @@ export const Search: React.FC = () => {
             width: 64,
             height: 64,
           }}
-        />
+        >
+          Filters
+        </Button>
       </Header>
       <SearchLayoutContainer>
         <VisualizationsTabContainer
