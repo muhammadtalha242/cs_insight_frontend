@@ -27,10 +27,8 @@ export const Search: React.FC = () => {
   const { dataSet } = useParams<"dataSet">();
   const [searchParams] = useSearchParams();
   const query = searchParams.get("query");
-
   const navigate = useNavigate();
   const { state, dispatch } = useContext(QueryContext);
-  console.log("state", state);
 
   const onSubmit = (updatedValues: StateProps) => {
     setQuery(dispatch)(updatedValues);
