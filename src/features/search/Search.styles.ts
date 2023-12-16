@@ -1,19 +1,17 @@
-import { Layout, Tabs } from "antd";
+import { Tabs } from "antd";
 import styled from "styled-components";
 import { Size } from "../../themes";
 
-const { Content } = Layout;
 
 type VisualizationsTabContainerStyleProps= {
     flex: number;
 }
 
-export const MainContentContainer = styled(Layout)``;
+export const MainContentContainer = styled.div``;
 
 
-export const SearchLayoutContainer = styled(Content)`
+export const SearchLayoutContainer = styled.div`
     display: flex;
-    width: 100%;
 `;
 
 export const VisualizationsTabContainer= styled(Tabs)<VisualizationsTabContainerStyleProps>`
