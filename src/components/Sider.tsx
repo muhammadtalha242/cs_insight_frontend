@@ -3,10 +3,13 @@ import styled from "styled-components";
 import { Color } from "../themes";
 
 const SiderContainer = styled.aside`
+  box-sizing: border-box;
   background-color: ${Color.white80};
   border-left: 1px solid ${Color.lightSilver};
-  flex: 1;
   transition: flex-basis 0.5s ease;
+  width: 22rem;
+  height: auto;
+  overflow: auto;
 
   &.collapsed {
     flex: 0;
