@@ -20,7 +20,7 @@ export const ChartContainer = styled.div`
   }
 
   svg text {
-    // font-family: ${sans};
+    font-family: ${sans};
     cursor: default;
     user-select: none;
   }
