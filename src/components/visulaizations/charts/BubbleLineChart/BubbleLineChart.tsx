@@ -1,5 +1,6 @@
-import React, { useEffect, useMemo, useRef } from "react";
+import React, { useContext, useEffect, useMemo, useRef } from "react";
 import * as d3 from "d3";
+import { ApplicationContext } from "../../../../context/Application.context";
 
 type DataPoint = {
   x: number;
@@ -8,15 +9,13 @@ type DataPoint = {
 
 export interface BubbleLineChartProps {
   data: DataPoint[];
-  isExpanded: boolean;
 }
 
 type Range = [number, number];
 
-export const BubbleLineChart: React.FC<BubbleLineChartProps> = ({
-  data,
-  isExpanded,
-}) => {
+export const BubbleLineChart: React.FC<BubbleLineChartProps> = ({ data }) => {
+  const { state: applicationState } = useContext(ApplicationContext);
+  const { isFiltersCollaped } = applicationState;
   const chartRef = useRef<SVGSVGElement | null>(null);
   const extentX = useMemo<Range>(
     () => d3.extent(data, (d) => d.x) as [number, number],
@@ -32,7 +31,7 @@ export const BubbleLineChart: React.FC<BubbleLineChartProps> = ({
 
       drawChart({ width: containerWidth, height: containerHeight });
     }
-  }, [data, isExpanded]);
+  }, [data, isFiltersCollaped]);
 
   const drawChart = (dim: { width: number; height: number }) => {
     const width = dim.width;
