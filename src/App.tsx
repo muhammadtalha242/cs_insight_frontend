@@ -3,8 +3,9 @@ import { ConfigProvider, Layout } from "antd";
 import { Footer } from "antd/es/layout/layout";
 import styled from "styled-components";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { FilterProvider } from "./context/FilterContext";
-import { Provider as QueryContextProvider } from "./context/QueryContext";
+import { FilterProvider } from "./context/Filter.context";
+import { Provider as QueryContextProvider } from "./context/Query.context";
+import { Provider as ApplicationContextProvider } from "./context/Application.context";
 
 import Home from "./features/home";
 import Search from "./features/search";
@@ -49,11 +50,13 @@ const App: React.FC = () => (
   >
     <Layout>
       <ContentStyledContainer>
-        <QueryContextProvider>
-          <FilterProvider>
-            <RouterProvider router={Routes} />
-          </FilterProvider>
-        </QueryContextProvider>
+        <ApplicationContextProvider>
+          <QueryContextProvider>
+            <FilterProvider>
+              <RouterProvider router={Routes} />
+            </FilterProvider>
+          </QueryContextProvider>
+        </ApplicationContextProvider>
       </ContentStyledContainer>
       <Footer style={footerStyle}>Footer</Footer>
     </Layout>
