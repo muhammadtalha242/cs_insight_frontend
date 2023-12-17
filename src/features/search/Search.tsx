@@ -49,7 +49,7 @@ export const Search: React.FC = () => {
     {
       key: "analytics",
       label: "Analytics",
-      children: <Analytics />,
+      children: <Analytics isExpanded={!collapsed} />,
     },
   ];
 
