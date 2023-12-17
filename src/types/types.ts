@@ -164,3 +164,9 @@ export type AuthContextType = {
 };
 
 export type DataSets = 'papers' | 'authors' | 'venues'
+
+
+export type IAction = {
+  type: string;
+  payload?: any;
+};
