@@ -8,11 +8,15 @@ type DataPoint = {
 
 export interface BubbleLineChartProps {
   data: DataPoint[];
+  isExpanded: boolean;
 }
 
 type Range = [number, number];
 
-export const BubbleLineChart: React.FC<BubbleLineChartProps> = ({ data }) => {
+export const BubbleLineChart: React.FC<BubbleLineChartProps> = ({
+  data,
+  isExpanded,
+}) => {
   const chartRef = useRef<SVGSVGElement | null>(null);
   const extentX = useMemo<Range>(
     () => d3.extent(data, (d) => d.x) as [number, number],
@@ -25,13 +29,14 @@ export const BubbleLineChart: React.FC<BubbleLineChartProps> = ({ data }) => {
     if (data && chartRef.current) {
       const containerWidth = chartRef.current.clientWidth;
       const containerHeight = chartRef.current.clientHeight;
+
       drawChart({ width: containerWidth, height: containerHeight });
     }
-  }, [data]);
+  }, [data, isExpanded]);
 
   const drawChart = (dim: { width: number; height: number }) => {
     const width = dim.width;
-    const height = 638;
+    const height = 620;
 
     const marginTop = 20;
     const marginRight = 30;
