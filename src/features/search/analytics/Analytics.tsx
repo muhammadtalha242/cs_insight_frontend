@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React from "react";
 import { Tabs } from "antd";
 import type { TabsProps } from "antd";
 import _ from "lodash";
@@ -10,28 +10,29 @@ import DistributionOverTime from "../../visualizations/distributionOverTime/Dist
 export type ColorMap = Record<string, string>;
 const data = papersCountPerYear;
 
-export const visualizationsAll: TabsProps["items"] = [
-  {
-    key: "line-chart",
-    label: "Distribution of Papers",
-    children: <DistributionOverTime data={data} />,
-  },
-  {
-    key: "2",
-    label: "Tab 2",
-    children: "Content of Tab Pane 2",
-  },
-  {
-    key: "3",
-    label: "Tab 3",
-    children: "Content of Tab Pane 3",
-  },
-];
-export const Analytics: React.FC = () => {
+export const Analytics: React.FC<{ isExpanded: boolean }> = ({
+  isExpanded,
+}) => {
   const onChange = (key: string) => {
     console.log(key);
   };
-
+  const visualizationsAll: TabsProps["items"] = [
+    {
+      key: "line-chart",
+      label: "Distribution of Papers",
+      children: <DistributionOverTime data={data} isExpanded={isExpanded} />,
+    },
+    {
+      key: "2",
+      label: "Tab 2",
+      children: "Content of Tab Pane 2",
+    },
+    {
+      key: "3",
+      label: "Tab 3",
+      children: "Content of Tab Pane 3",
+    },
+  ];
   const visualizationsSelected: TabsProps["items"] = [];
 
   return (
