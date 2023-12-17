@@ -26,6 +26,20 @@ import {
   SetFilterCollapsed,
 } from "../../context/Application.context";
 
+const SEARCH_ITEMS: TabsProps["items"] = [
+  {
+    key: "search-results",
+    label: "Search Results",
+    children: <SearchResults />,
+    disabled: true,
+  },
+  {
+    key: "analytics",
+    label: "Analytics",
+    children: <Analytics />,
+  },
+];
+
 export const Search: React.FC = () => {
   const { dataSet } = useParams<"dataSet">();
   const [searchParams] = useSearchParams();
@@ -45,20 +59,6 @@ export const Search: React.FC = () => {
   const onChange = (key: string) => {
     console.log(key);
   };
-
-  const items: TabsProps["items"] = [
-    {
-      key: "search-results",
-      label: "Search Results",
-      children: <SearchResults />,
-      disabled: true,
-    },
-    {
-      key: "analytics",
-      label: "Analytics",
-      children: <Analytics />,
-    },
-  ];
 
   const sendHome = () => {
     resetFilters(queryDispatch)();
@@ -107,7 +107,7 @@ export const Search: React.FC = () => {
       <SearchLayoutContainer>
         <VisualizationsTabContainer
           defaultActiveKey="analytics"
-          items={items}
+          items={SEARCH_ITEMS}
           onChange={onChange}
           flex={isFiltersCollaped ? 1 : 4}
         />
