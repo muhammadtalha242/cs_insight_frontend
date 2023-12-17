@@ -4,7 +4,7 @@ import CombinedInput from "../../components/CombinedInput";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { DataSets } from "../../types/types";
-import { QueryContext, setQuery } from "../../context/QueryContext";
+import { QueryContext, setQuery } from "../../context/Query.context";
 
 const { Content } = Layout;
 
