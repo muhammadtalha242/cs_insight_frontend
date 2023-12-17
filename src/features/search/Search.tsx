@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Button } from "antd";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import type { TabsProps } from "antd";
@@ -9,29 +9,36 @@ import Header from "../../components/Header";
 import { StateProps } from "../home/Home";
 import Analytics from "./analytics";
 import SearchResults from "./searchResults";
-import Filter from "../filers";
+import Filter from "../filters";
 import {
   QueryContext,
   setQuery,
   resetFilters,
   resetQueryState,
-} from "../../context/QueryContext";
+} from "../../context/Query.context";
 import {
   MainContentContainer,
   SearchLayoutContainer,
   VisualizationsTabContainer,
 } from "./Search.styles";
+import {
+  ApplicationContext,
+  SetFilterCollapsed,
+} from "../../context/Application.context";
 
 export const Search: React.FC = () => {
-  const [collapsed, setCollapsed] = useState(false);
   const { dataSet } = useParams<"dataSet">();
   const [searchParams] = useSearchParams();
   const query = searchParams.get("query");
   const navigate = useNavigate();
-  const { state, dispatch } = useContext(QueryContext);
+  const { state: queryState, dispatch: queryDispatch } =
+    useContext(QueryContext);
+  const { state: applicationState, dispatch: applicationDispatch } =
+    useContext(ApplicationContext);
+  const { isFiltersCollaped } = applicationState;
 
   const onSubmit = (updatedValues: StateProps) => {
-    setQuery(dispatch)(updatedValues);
+    setQuery(queryDispatch)(updatedValues);
     navigate(`/search/${updatedValues.dataSet}&query=${updatedValues.query}`);
   };
 
@@ -49,14 +56,20 @@ export const Search: React.FC = () => {
     {
       key: "analytics",
       label: "Analytics",
-      children: <Analytics isExpanded={!collapsed} />,
+      children: <Analytics />,
     },
   ];
 
   const sendHome = () => {
-    resetFilters(dispatch)();
-    resetQueryState(dispatch)();
+    resetFilters(queryDispatch)();
+    resetQueryState(queryDispatch)();
     navigate(`/`);
+  };
+
+  const handleFiltersCollapse = () => {
+    SetFilterCollapsed(applicationDispatch)({
+      isFiltersCollaped: !isFiltersCollaped,
+    });
   };
 
   return (
@@ -67,21 +80,21 @@ export const Search: React.FC = () => {
         </Button>
         <CombinedInput
           initialValues={{
-            dataSet: state.dataSet,
-            query: state.query,
+            dataSet: queryState.dataSet,
+            query: queryState.query,
           }}
           onSubmit={onSubmit}
         />
         <Button
           type="text"
           icon={
-            collapsed ? (
+            isFiltersCollaped ? (
               <MenuUnfoldOutlined style={{ color: "#08c" }} />
             ) : (
               <MenuFoldOutlined style={{ color: "#08c" }} />
             )
           }
-          onClick={() => setCollapsed(!collapsed)}
+          onClick={handleFiltersCollapse}
           style={{
             fontSize: "16px",
             width: 64,
@@ -96,9 +109,9 @@ export const Search: React.FC = () => {
           defaultActiveKey="analytics"
           items={items}
           onChange={onChange}
-          flex={collapsed ? 1 : 4}
+          flex={isFiltersCollaped ? 1 : 4}
         />
-        <Filter collapsed={collapsed} />
+        <Filter collapsed={isFiltersCollaped} />
       </SearchLayoutContainer>
     </MainContentContainer>
   );
