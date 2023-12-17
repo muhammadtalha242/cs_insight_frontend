@@ -1,18 +1,15 @@
 import React from "react";
 import { Tabs } from "antd";
 import type { TabsProps } from "antd";
-import _ from "lodash";
 
 import papersCountPerYear from "../../../../public/paper-count-per-year.json";
 
-import DistributionOverTime from "../../visualizations/distributionOverTime/DistributionOverTime";
+import DistributionOverTime from "./visualizations/distributionOverTime/DistributionOverTime";
 
 export type ColorMap = Record<string, string>;
 const data = papersCountPerYear;
 
-export const Analytics: React.FC<{ isExpanded: boolean }> = ({
-  isExpanded,
-}) => {
+export const Analytics: React.FC = () => {
   const onChange = (key: string) => {
     console.log(key);
   };
@@ -20,7 +17,7 @@ export const Analytics: React.FC<{ isExpanded: boolean }> = ({
     {
       key: "line-chart",
       label: "Distribution of Papers",
-      children: <DistributionOverTime data={data} isExpanded={isExpanded} />,
+      children: <DistributionOverTime data={data} />,
     },
     {
       key: "2",
