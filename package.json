@@ -13,7 +13,6 @@
     "antd": "^5.11.1",
     "d3": "^7.8.5",
     "@rehooks/component-size": "^1.0.3",
-    "lodash": "^4.17.21",
     "polished": "^4.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
