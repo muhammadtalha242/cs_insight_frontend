@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, useMemo, useRef } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+} from "react";
 import * as d3 from "d3";
 import { ApplicationContext } from "../../../../context/Application.context";
 
@@ -23,7 +29,7 @@ export const BubbleLineChart: React.FC<BubbleLineChartProps> = ({ data }) => {
   );
   const maxY = useMemo(() => d3.max(data, (d) => d.y), [data]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!chartRef.current || !data.length) return;
     if (data && chartRef.current) {
       const containerWidth = chartRef.current.clientWidth;
