@@ -40,12 +40,17 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
   title,
 }) => {
   const [isCollapsed, setIsCollapsed] = useState(true);
+
   const handleClick = () => {
     setIsCollapsed((prev) => !prev);
   };
+
   return (
-    <CollapsibleContainer onClick={handleClick}>
-      <CollapsibleContainerHeader className={isCollapsed ? "" : "open"}>
+    <CollapsibleContainer>
+      <CollapsibleContainerHeader
+        onClick={handleClick}
+        className={isCollapsed ? "" : "open"}
+      >
         <span className="left">
           {isCollapsed ? <RightOutlined /> : <DownOutlined />}
           <LabelFilterContainer>{title}</LabelFilterContainer>
