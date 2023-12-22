@@ -1,13 +1,10 @@
 import React from "react";
 import type { TabsProps } from "antd";
 
-import papersCountPerYear from "../../../../public/paper-count-per-year.json";
-
 import DistributionOverTime from "./visualizations/distributionOverTime/DistributionOverTime";
 import { AnalyticsContainer, AnalyticsTabs } from "./Analytics.styles";
 
 export type ColorMap = Record<string, string>;
-const data = papersCountPerYear;
 
 const visualizationsAll: TabsProps["items"] = [
   {
@@ -15,7 +12,7 @@ const visualizationsAll: TabsProps["items"] = [
     label: "Distribution of Papers",
     forceRender: true,
     destroyInactiveTabPane: true,
-    children: <DistributionOverTime data={data} />,
+    children: <DistributionOverTime />,
   },
   {
     key: "2",
