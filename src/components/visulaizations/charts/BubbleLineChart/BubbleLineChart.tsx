@@ -7,6 +7,11 @@ import React, {
 } from "react";
 import * as d3 from "d3";
 import { ApplicationContext } from "../../../../context/Application.context";
+import {
+  defaultFormat,
+  defaultLayout as layout,
+  defaultStyles,
+} from "./BubbleLineChart.defaults";
 
 type DataPoint = {
   x: number;
@@ -19,10 +24,16 @@ export interface BubbleLineChartProps {
 
 type Range = [number, number];
 
+/*//TODO
+1. create wrapper, margins, and bounded structure for all visualizations
+2. use declaritive ways to create charts ->  
+3. add transitions on entry and exit of charts
+*/
 export const BubbleLineChart: React.FC<BubbleLineChartProps> = ({ data }) => {
   const { state: applicationState } = useContext(ApplicationContext);
   const { isFiltersCollaped } = applicationState;
-  const chartRef = useRef<SVGSVGElement | null>(null);
+  const chartRef = useRef<SVGSVGElement>(null);
+
   const extentX = useMemo<Range>(
     () => d3.extent(data, (d) => d.x) as [number, number],
     [data]
@@ -43,16 +54,14 @@ export const BubbleLineChart: React.FC<BubbleLineChartProps> = ({ data }) => {
     const width = dim.width;
     const height = 620;
 
-    const marginTop = 20;
-    const marginRight = 30;
-    const marginBottom = 30;
-    const marginLeft = 40;
-
-    const xScale = d3.scaleLinear(extentX, [marginLeft, width - marginRight]);
+    const xScale = d3.scaleLinear(extentX, [
+      layout.margin.left,
+      width - layout.margin.right,
+    ]);
 
     const yScale = d3.scaleLinear([0, maxY] as [number, number], [
-      height - marginBottom,
-      marginTop,
+      height - layout.margin.bottom,
+      layout.margin.top,
     ]);
 
     const rScale = d3
@@ -68,39 +77,52 @@ export const BubbleLineChart: React.FC<BubbleLineChartProps> = ({ data }) => {
     const svg = d3.select(chartRef.current);
 
     svg.selectAll("*").remove(); // Clear existing content
+    const t = d3.transition().duration(750).ease(d3.easeLinear);
 
     svg
       .attr("viewBox", [0, 0, width, height])
       .attr("width", width)
       .attr("height", height)
-      .style("-webkit-tap-highlight-color", "transparent")
-      .style("overflow", "visible")
       .on("pointerenter pointermove", pointermoved)
       .on("pointerleave", pointerleft)
-      .on("touchstart", (event) => event.preventDefault());
+      .on("touchstart", (event) => event.preventDefault())
+      .transition(t)
+      .style("-webkit-tap-highlight-color", "transparent")
+      .style("overflow", "visible");
 
     svg
       .append("g")
-      .attr("transform", `translate(0,${height - marginBottom})`)
+      .attr("transform", `translate(0,${height - layout.margin.bottom})`)
+      .call((g) =>
+        g
+          .append("text")
+          .attr("x", width - layout.margin.right)
+          .attr("y", layout.margin.bottom + 20)
+          .attr("fill", "currentColor")
+          .attr("text-anchor", "end")
+          .text("Years")
+      )
+      .transition(t)
       .call(
         d3
           .axisBottom(xScale)
           .ticks(width / 50)
           .tickSizeOuter(5)
-      )
-      .call((g) =>
-        g
-          .append("text")
-          .attr("x", width - marginRight)
-          .attr("y", marginBottom + 20)
-          .attr("fill", "currentColor")
-          .attr("text-anchor", "end")
-          .text("Years")
       );
 
     svg
       .append("g")
-      .attr("transform", `translate(${marginLeft},0)`)
+      .attr("transform", `translate(${layout.margin.left},0)`)
+      .call((g) =>
+        g
+          .append("text")
+          .attr("x", -layout.margin.left)
+          .attr("y", 10)
+          .attr("fill", "currentColor")
+          .attr("text-anchor", "start")
+          .text("Number of Papers")
+      )
+      .transition(t)
       .call(
         d3
           .axisLeft(yScale)
@@ -110,25 +132,17 @@ export const BubbleLineChart: React.FC<BubbleLineChartProps> = ({ data }) => {
       .call((g) =>
         g
           .selectAll(".tick line")
-          .attr("x2", width - marginLeft - marginRight)
+          .attr("x2", width - layout.margin.left - layout.margin.right)
           .attr("stroke-opacity", 0.4)
-      )
-      .call((g) =>
-        g
-          .append("text")
-          .attr("x", -marginLeft)
-          .attr("y", 10)
-          .attr("fill", "currentColor")
-          .attr("text-anchor", "start")
-          .text("Number of Papers")
       );
 
     svg
       .append("path")
+      .attr("d", line(data))
+      .transition(t)
       .attr("fill", "none")
-      .attr("stroke", "steelblue")
       .attr("stroke-width", 1.5)
-      .attr("d", line(data));
+      .attr("stroke", "steelblue");
 
     svg
       .selectAll("circle")
@@ -137,6 +151,7 @@ export const BubbleLineChart: React.FC<BubbleLineChartProps> = ({ data }) => {
       .append("circle")
       .attr("cx", (d) => xScale(d.x))
       .attr("cy", (d) => yScale(d.y))
+      .transition(t)
       .attr("r", (d) => rScale(d.y / (maxY || 1)))
       .attr("fill", "steelblue");
 
@@ -209,5 +224,11 @@ export const BubbleLineChart: React.FC<BubbleLineChartProps> = ({ data }) => {
     }
   };
 
-  return <svg ref={chartRef} style={{ width: "100%", height: "100%" }}></svg>;
+  return (
+    <svg
+      ref={chartRef}
+      style={{ width: "100%", height: "100%" }}
+      className="chart-area"
+    ></svg>
+  );
 };
