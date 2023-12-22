@@ -6,6 +6,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { FilterProvider } from "./context/Filter.context";
 import { Provider as QueryContextProvider } from "./context/Query.context";
 import { Provider as ApplicationContextProvider } from "./context/Application.context";
+import { ThemeProvider } from "styled-components";
+import { darkTheme } from "./themes";
 
 import Home from "./features/home";
 import Search from "./features/search";
@@ -50,15 +52,17 @@ const App: React.FC = () => (
   >
     <Layout>
       <ContentStyledContainer>
-        <ApplicationContextProvider>
-          <QueryContextProvider>
-            <FilterProvider>
-              <RouterProvider router={Routes} />
-            </FilterProvider>
-          </QueryContextProvider>
-        </ApplicationContextProvider>
+        <ThemeProvider theme={darkTheme}>
+          <ApplicationContextProvider>
+            <QueryContextProvider>
+              <FilterProvider>
+                <RouterProvider router={Routes} />
+              </FilterProvider>
+            </QueryContextProvider>
+          </ApplicationContextProvider>
+        </ThemeProvider>
       </ContentStyledContainer>
-      <Footer style={footerStyle}>Footer</Footer>
+      {/* <Footer style={footerStyle}>Footer</Footer> */}
     </Layout>
   </ConfigProvider>
 );
