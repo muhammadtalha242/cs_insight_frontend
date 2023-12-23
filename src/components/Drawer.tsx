@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
-import { Drawer as DrawerAntd } from "antd";
-import styled from "styled-components";
+import { Drawer as DrawerAntd } from 'antd';
+import styled from 'styled-components';
 
 const DrawerContainer = styled(DrawerAntd)``;
 

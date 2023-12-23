@@ -1,7 +1,7 @@
-import * as d3 from "d3";
+import React from 'react';
+
 import {
   LineChart,
-  DotProps,
   Line,
   XAxis,
   YAxis,
@@ -9,28 +9,9 @@ import {
   Tooltip,
   ResponsiveContainer,
   Label,
-} from "recharts";
+} from 'recharts';
 
-import papersCountPerYear from "../../../../public/paper-count-per-year.json";
-
-const max = d3.max(papersCountPerYear, (d) => d.count) || 1;
-
-const CustomizedToolTipContent = ({ active, payload, label }: any) => {
-  if (active && payload && payload.length) {
-    return (
-      <div className="custom-tooltip">
-        <p className="label">{`Year: ${label}`}</p>
-        <p className="label">{`Count: ${payload[0].value}`}</p>
-      </div>
-    );
-  }
-
-  return null;
-};
-
-const Dot = (props: DotProps) => {
-  return <></>;
-};
+import papersCountPerYear from '../../../../public/paper-count-per-year.json';
 
 export default function LineChartReChart() {
   return (
@@ -63,7 +44,6 @@ export default function LineChartReChart() {
           dataKey="count"
           stroke="#8884d8"
           activeDot={{ r: 8 }}
-          dot={Dot}
         />
       </LineChart>
     </ResponsiveContainer>

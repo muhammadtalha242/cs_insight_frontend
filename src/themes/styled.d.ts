@@ -1,6 +1,6 @@
-import "styled-components";
+import 'styled-components';
 
-import * as Units from "./units";
+import * as Units from './units';
 
 type KeysOf<T> = T[keyof T];
 
@@ -13,7 +13,7 @@ export type FontWeight = KeysOf<typeof Units.FontWeight>;
 export type Height = KeysOf<typeof Units.Size>;
 export type Spacing = KeysOf<typeof Units.Spacing>;
 
-declare module "styled-components" {
+declare module 'styled-components' {
   export interface DefaultTheme {
     text: {
       primary: Color;

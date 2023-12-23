@@ -4,17 +4,17 @@ import React, {
   useLayoutEffect,
   useRef,
   useState,
-} from "react";
+} from 'react';
 
-import { ApplicationContext } from "../../../../context/Application.context";
+import { ApplicationContext } from '../../../../context/Application.context';
 
-import { VisualizationContainer } from "./Visualizations.styles";
+import { VisualizationContainer } from './Visualizations.styles';
 
-type VisualizationsContainer = {
+type VisualizationsContainerProps = {
   children: ReactNode;
 };
 
-const VisualizationsContainer: React.FC<VisualizationsContainer> = ({
+const VisualizationsContainer: React.FC<VisualizationsContainerProps> = ({
   children,
 }) => {
   const chartRef = useRef<HTMLDivElement>(null);
@@ -30,8 +30,8 @@ const VisualizationsContainer: React.FC<VisualizationsContainer> = ({
       });
 
       console.log(
-        "chartRef.current.clientHeight",
-        chartRef.current.clientHeight,
+        'chartRef.current.clientHeight',
+        chartRef.current.clientHeight
       );
     }
   }, [isFiltersCollaped]);
@@ -41,8 +41,8 @@ const VisualizationsContainer: React.FC<VisualizationsContainer> = ({
       ref={chartRef}
       style={{
         height: `${dimensions.height}px`,
-        width: "99.5%",
-        position: "relative",
+        width: '99.5%',
+        position: 'relative',
       }}
     >
       {children}

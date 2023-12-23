@@ -151,15 +151,15 @@ export type LdaVisData = {
     logprob: number[];
     loglift: number[];
   };
-  "token.table": {
+  'token.table': {
     Topic: number[];
     Freq: number[];
     Term: string[];
   };
   R: string;
-  "lambda.step": number;
-  "plot.opts": { xlab: string; ylab: string };
-  "topic.order": number[];
+  'lambda.step': number;
+  'plot.opts': { xlab: string; ylab: string };
+  'topic.order': number[];
 };
 
 export type AuthContextType = {
@@ -168,7 +168,7 @@ export type AuthContextType = {
   logout: () => void;
 };
 
-export type DataSets = "papers" | "authors" | "venues";
+export type DataSets = 'papers' | 'authors' | 'venues';
 
 export type IAction = {
   type: string;

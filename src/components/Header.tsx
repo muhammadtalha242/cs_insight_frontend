@@ -1,9 +1,9 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode } from 'react';
 
-import { Layout } from "antd";
-import styled from "styled-components";
+import { Layout } from 'antd';
+import styled from 'styled-components';
 
-import { Color } from "../themes";
+import { Color } from '../themes';
 
 const { Header: HeaderAntd } = Layout;
 
@@ -15,11 +15,11 @@ const HeaderComponets = styled(HeaderAntd)`
   padding-right: 20px;
 `;
 const headerStyle: React.CSSProperties = {
-  textAlign: "center",
-  color: "#fff",
+  textAlign: 'center',
+  color: '#fff',
   height: 64,
   paddingInline: 48,
-  lineHeight: "64px",
+  lineHeight: '64px',
 };
 
 const Header: React.FC<{ children?: ReactNode }> = ({ children }) => {

@@ -1,0 +1,4 @@
+/public/**
+/static/**
+**/*.css
+/node_modules/

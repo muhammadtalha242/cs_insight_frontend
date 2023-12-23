@@ -1,19 +1,19 @@
-import React from "react";
+import React from 'react';
 
-import type { MenuProps } from "antd";
-import { Menu } from "antd";
-import styled from "styled-components";
+import type { MenuProps } from 'antd';
+import { Menu } from 'antd';
+import styled from 'styled-components';
 
-const narBarMenuItems: MenuProps["items"] = [
-  { key: "Home", label: <>Home</>, title: "Home" },
+const narBarMenuItems: MenuProps['items'] = [
+  { key: 'Home', label: <>Home</>, title: 'Home' },
   {
-    key: "Search",
+    key: 'Search',
     label: <>Search</>,
-    title: "Search",
+    title: 'Search',
     children: [
-      { key: "Papers", label: <>Paper</> },
-      { key: "Authors", label: <>Authors</> },
-      { key: "Venues", label: <>Venues</> },
+      { key: 'Papers', label: <>Paper</> },
+      { key: 'Authors', label: <>Authors</> },
+      { key: 'Venues', label: <>Venues</> },
     ],
   },
 ];
@@ -25,7 +25,7 @@ export const Navbar: React.FC = () => {
   return (
     <NavbarMenuContainer
       mode="horizontal"
-      defaultSelectedKeys={["Home"]}
+      defaultSelectedKeys={['Home']}
       items={narBarMenuItems}
     />
   );

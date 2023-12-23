@@ -1,8 +1,8 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode } from 'react';
 
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import { Color } from "../themes";
+import { Color } from '../themes';
 
 const SiderContainer = styled.aside`
   box-sizing: border-box;
@@ -26,7 +26,7 @@ export type SiderProps = {
 
 const Sider: React.FC<SiderProps> = ({ children, collapsed }) => {
   return (
-    <SiderContainer className={collapsed ? "collapsed" : ""}>
+    <SiderContainer className={collapsed ? 'collapsed' : ''}>
       {children}
     </SiderContainer>
   );

@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import { Spacing } from "../../themes";
+import { Spacing } from '../../themes';
 
 export const FilterContentContainer = styled.div`
   padding: ${Spacing.large} 0;

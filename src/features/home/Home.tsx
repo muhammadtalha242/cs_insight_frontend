@@ -1,12 +1,12 @@
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useContext, useState } from 'react';
 
-import { Button, Layout, Space } from "antd";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import { Button, Layout, Space } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
-import CombinedInput from "../../components/CombinedInput";
-import { QueryContext, setQuery } from "../../context/Query.context";
-import { DataSets } from "../../types/types";
+import CombinedInput from '../../components/CombinedInput';
+import { QueryContext, setQuery } from '../../context/Query.context';
+import { DataSets } from '../../types/types';
 
 const { Content } = Layout;
 
@@ -44,11 +44,11 @@ export const Home: React.FC = () => {
 
       navigate(`/search/${updatedValues.dataSet}?query=${updatedValues.query}`);
     },
-    [dispatch],
+    [dispatch]
   );
 
   const handleChangeView = useCallback((dataSet: DataSets) => {
-    onSubmit({ dataSet, query: "all" });
+    onSubmit({ dataSet, query: 'all' });
   }, []);
 
   return (
@@ -59,14 +59,14 @@ export const Home: React.FC = () => {
         <Button
           id="papers"
           name="papers"
-          onClick={() => handleChangeView("papers")}
+          onClick={() => handleChangeView('papers')}
         >
           Papers
         </Button>
         <Button
           id="authors"
           name="authors"
-          onClick={() => handleChangeView("authors")}
+          onClick={() => handleChangeView('authors')}
         >
           Authors
         </Button>

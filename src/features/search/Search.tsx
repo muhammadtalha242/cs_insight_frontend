@@ -1,52 +1,52 @@
-import React, { useContext } from "react";
+import React, { useContext } from 'react';
 
-import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
+import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 
-import { Button } from "antd";
-import type { TabsProps } from "antd";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { Button } from 'antd';
+import type { TabsProps } from 'antd';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
-import CombinedInput from "../../components/CombinedInput";
-import Header from "../../components/Header";
+import CombinedInput from '../../components/CombinedInput';
+import Header from '../../components/Header';
 import {
   ApplicationContext,
   SetFilterCollapsed,
-} from "../../context/Application.context";
+} from '../../context/Application.context';
 import {
   QueryContext,
   setQuery,
   resetFilters,
   resetQueryState,
-} from "../../context/Query.context";
-import Filter from "../filters";
-import { StateProps } from "../home/Home";
+} from '../../context/Query.context';
+import Filter from '../filters';
+import { StateProps } from '../home/Home';
 
-import Analytics from "./analytics";
+import Analytics from './analytics';
 import {
   MainContentContainer,
   SearchLayoutContainer,
   VisualizationsTabContainer,
-} from "./Search.styles";
-import SearchResults from "./searchResults";
+} from './Search.styles';
+import SearchResults from './searchResults';
 
-const SEARCH_ITEMS: TabsProps["items"] = [
+const SEARCH_ITEMS: TabsProps['items'] = [
   {
-    key: "search-results",
-    label: "Search Results",
+    key: 'search-results',
+    label: 'Search Results',
     children: <SearchResults />,
     disabled: true,
   },
   {
-    key: "analytics",
-    label: "Analytics",
+    key: 'analytics',
+    label: 'Analytics',
     children: <Analytics />,
   },
 ];
 
 export const Search: React.FC = () => {
-  const { dataSet } = useParams<"dataSet">();
+  const { dataSet } = useParams<'dataSet'>();
   const [searchParams] = useSearchParams();
-  const query = searchParams.get("query");
+  const query = searchParams.get('query');
   const navigate = useNavigate();
   const { state: queryState, dispatch: queryDispatch } =
     useContext(QueryContext);
@@ -78,7 +78,7 @@ export const Search: React.FC = () => {
   return (
     <MainContentContainer>
       <Header>
-        <Button style={{ border: "none" }} onClick={sendHome}>
+        <Button style={{ border: 'none' }} onClick={sendHome}>
           Logo
         </Button>
         <CombinedInput
@@ -92,14 +92,14 @@ export const Search: React.FC = () => {
           type="text"
           icon={
             isFiltersCollaped ? (
-              <MenuUnfoldOutlined style={{ color: "#08c" }} />
+              <MenuUnfoldOutlined style={{ color: '#08c' }} />
             ) : (
-              <MenuFoldOutlined style={{ color: "#08c" }} />
+              <MenuFoldOutlined style={{ color: '#08c' }} />
             )
           }
           onClick={handleFiltersCollapse}
           style={{
-            fontSize: "16px",
+            fontSize: '16px',
             width: 64,
             height: 64,
           }}

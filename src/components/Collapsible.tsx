@@ -1,14 +1,14 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useState } from 'react';
 
 import {
   InfoCircleOutlined,
   RightOutlined,
   DownOutlined,
-} from "@ant-design/icons";
+} from '@ant-design/icons';
 
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import { Spacing } from "../themes";
+import { Spacing } from '../themes';
 
 type CollapsibleProps = {
   children?: ReactNode;
@@ -53,7 +53,7 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
     <CollapsibleContainer>
       <CollapsibleContainerHeader
         onClick={handleClick}
-        className={isCollapsed ? "" : "open"}
+        className={isCollapsed ? '' : 'open'}
       >
         <span className="left">
           {isCollapsed ? <RightOutlined /> : <DownOutlined />}

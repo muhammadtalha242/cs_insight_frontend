@@ -1,41 +1,41 @@
-import React from "react";
+import React from 'react';
 
-import { Footer } from "antd/es/layout/layout";
+import { Footer } from 'antd/es/layout/layout';
 
-import { ConfigProvider, Layout } from "antd";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import styled, { ThemeProvider } from "styled-components";
+import { ConfigProvider, Layout } from 'antd';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import styled, { ThemeProvider } from 'styled-components';
 
-import { Provider as ApplicationContextProvider } from "./context/Application.context";
-import { FilterProvider } from "./context/Filter.context";
-import { Provider as QueryContextProvider } from "./context/Query.context";
-import Home from "./features/home";
-import Search from "./features/search";
-import { darkTheme } from "./themes";
+import { Provider as ApplicationContextProvider } from './context/Application.context';
+import { FilterProvider } from './context/Filter.context';
+import { Provider as QueryContextProvider } from './context/Query.context';
+import Home from './features/home';
+import Search from './features/search';
+import { darkTheme } from './themes';
 
-import "./App.css";
+import './App.css';
 
 const { Content } = Layout;
 
 const ContentStyledContainer = styled(Content)``;
 
 const footerStyle: React.CSSProperties = {
-  textAlign: "center",
-  color: "#fff",
-  backgroundColor: "#4096ff",
+  textAlign: 'center',
+  color: '#fff',
+  backgroundColor: '#4096ff',
 };
 
 const layoutStyle: React.CSSProperties = {
-  display: "flex",
+  display: 'flex',
 };
 
 const Routes = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <Home />,
   },
   {
-    path: "/search/:dataSet",
+    path: '/search/:dataSet',
     element: <Search />,
   },
 ]);

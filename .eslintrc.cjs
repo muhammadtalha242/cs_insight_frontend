@@ -1,58 +1,72 @@
-const isProduction = process.env.NODE_ENV === 'production';
-
 module.exports = {
-  plugins: ['@typescript-eslint', 'import', 'prettier'],
-  extends: [
-    'plugin:@typescript-eslint/recommended',
-    'eslint:recommended',
-    'plugin:react/recommended',
-    'plugin:import/errors',
-    'plugin:import/warnings',
-    'plugin:import/typescript',
-    'plugin:prettier/recommended',
-  ],
-  parserOptions: {
-    ecmaVersion: 2020, // Modern ECMAScript syntax
-    sourceType: 'module', // Support for ES modules
-    ecmaFeatures: {
-      jsx: true,
-      modules: true
+    "env": {
+        "browser": true,
+        "es2021": true
     },
-  },
-  settings: {
-    react: {
-      version: 'detect', // Auto-detect React version
-    },
-    'import/extensions': ['.js', '.jsx', '.ts', '.tsx'],
-    'import/parsers': {
-      '@typescript-eslint/parser': ['.ts', '.tsx']
-    },
-    'import/ignore': ['node_modules'],
-    'import/resolver': {
-      typescript: {}
-    }
-  },
-  rules: {
-    'consistent-return': 'off',
-    'no-irregular-whitespace': 'off',
-    'no-console': [
-      'warn',
-      {
-        allow: ['error', 'info']
-      }
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:react/recommended",
+        'plugin:import/warnings',
+        'plugin:import/typescript',
+        'plugin:import/errors',
+        'prettier'
     ],
-    'no-debugger': isProduction ? 'error' : 'warn',
-    'no-shadow': ['off'],
-    'no-nested-ternary': 'warn',
-    'no-return-assign': [1, 'except-parens'],
-    'no-restricted-syntax': 'off',
-    'no-unused-vars': [
-      isProduction ? 'error' : 'warn',
-      {
-        ignoreRestSiblings: true
-      }
+    settings: {
+        'react': {
+          version: 'detect'
+        },
+        'import/extensions': ['.js', '.jsx', '.ts', '.tsx'],
+        'import/parsers': {
+          '@typescript-eslint/parser': ['.ts', '.tsx']
+        },
+        'import/ignore': ['node_modules'],
+        'import/resolver': {
+          typescript: {}
+        }
+      },
+      env: {
+        'es6': true,
+        'browser': true,
+        'node': true,
+      },
+    "overrides": [
+        {
+            "env": {
+                "node": true
+            },
+            "files": [
+                ".eslintrc.{js,cjs}"
+            ],
+            "parserOptions": {
+                "sourceType": "script"
+            }
+        }
     ],
-    'import/prefer-default-export': 'off',
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        ecmaVersion: "latest",
+        sourceType: "module",
+        project: './tsconfig.json'
+    },
+    "plugins": [
+        "@typescript-eslint",
+        "react",
+        'import',
+        'prettier'
+    ],
+    "rules": {
+        'consistent-return': 'off',
+        'no-irregular-whitespace': 'off',
+        'no-console': [
+          'warn',
+          {
+            allow: ['error', 'info']
+          }
+        ],
+        "react/react-in-jsx-scope": "off",
+        'no-unused-vars': ['warn'],
+        'import/prefer-default-export': 'off',
     'import/no-extraneous-dependencies': 'off',
     'import/namespace': [
       'warn',
@@ -179,54 +193,50 @@ module.exports = {
         }
       }
     ]
-  },
-  overrides: [
-    {
-      files: ['*.ts', '*.tsx'],
-      rules: {
-        '@typescript-eslint/no-use-before-define': 'error',
-        '@typescript-eslint/no-unused-vars': [
-          isProduction ? 'error' : 'warn',
-          {
-            ignoreRestSiblings: true
+    }, 
+    overrides: [
+        {
+          files: ['*.ts', '*.tsx'],
+          rules: {
+            '@typescript-eslint/no-use-before-define': 'error',
+            '@typescript-eslint/no-unused-vars':  'warn',
+            'no-unused-vars': 'off',
+            'no-undef': 'off',
+            '@typescript-eslint/no-var-requires': 'warn',
+            '@typescript-eslint/explicit-module-boundary-types': 'off',
+            'no-dupe-class-members': 'off',
+            'no-redeclare': 'off',
+            '@typescript-eslint/no-redeclare': ['error']
           }
-        ],
-        'no-unused-vars': 'off',
-        'no-undef': 'off',
-        '@typescript-eslint/no-var-requires': 'warn',
-        '@typescript-eslint/explicit-module-boundary-types': 'off',
-        'no-dupe-class-members': 'off',
-        'no-redeclare': 'off',
-        '@typescript-eslint/no-redeclare': ['error']
-      }
-    },
-    {
-      parser: 'espree',
-      files: ['config/*', 'webpack.*'],
-      plugins: ['node'],
-      extends: ['plugin:node/recommended'],
-      rules: {
-        'import/no-extraneous-dependencies': 'off',
-        'no-console': 'off',
-        'no-unused-vars': [
-          'warn',
-          {
-            ignoreRestSiblings: true
+        },
+        {
+          parser: 'espree',
+          files: ['config/*', 'webpack.*'],
+          plugins: ['node'],
+          extends: ['plugin:node/recommended'],
+          rules: {
+            'import/no-extraneous-dependencies': 'off',
+            'no-console': 'off',
+            'no-unused-vars': [
+              'warn',
+              {
+                ignoreRestSiblings: true
+              }
+            ],
+            'node/no-unpublished-require': 'off',
+            'object-shorthand': 'warn',
+            '@typescript-eslint/no-var-requires': 'off'
+          },
+          env: {
+            node: true
           }
-        ],
-        'node/no-unpublished-require': 'off',
-        'object-shorthand': 'warn',
-        '@typescript-eslint/no-var-requires': 'off'
-      },
-      env: {
-        node: true
-      }
-    },
-    {
-      files: ['*.test.*', '*.spec.*'],
-      rules: {
-        'no-unused-vars': 'warn',
-      }
-    }
-  ]
-};
+        },
+        {
+          files: ['*.test.*', '*.spec.*'],
+          rules: {
+            'no-unused-vars': 'warn',
+            'jest/expect-expect': 'warn'
+          }
+        }
+      ]
+}

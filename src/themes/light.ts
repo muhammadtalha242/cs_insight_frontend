@@ -1,8 +1,8 @@
-import { interpolateHsl } from "d3-interpolate";
-import { rgba } from "polished";
-import { DefaultTheme } from "styled-components";
+import { interpolateHsl } from 'd3-interpolate';
+import { rgba } from 'polished';
+import { DefaultTheme } from 'styled-components';
 
-import { Color, FontWeight } from "./units";
+import { Color, FontWeight } from './units';
 
 // TODO: use definitions from Color to create theme object, remove redundancies
 const lightTheme: DefaultTheme = {

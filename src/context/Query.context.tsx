@@ -1,16 +1,16 @@
-import React, { ReactNode, createContext, useReducer } from "react";
+import React, { ReactNode, createContext, useReducer } from 'react';
 
-import { ACCESS_TYPE_OPEN, metrics } from "../constants/consts";
-import { DataSets, Filter, IAction } from "../types/types";
+import { ACCESS_TYPE_OPEN, metrics } from '../constants/consts';
+import { DataSets, Filter, IAction } from '../types/types';
 
 export const initialState: IState = {
-  dataSet: "papers",
-  query: "5G",
+  dataSet: 'papers',
+  query: '5G',
   filters: {
-    yearStart: "1960",
-    yearEnd: "",
-    citationsMin: "",
-    citationsMax: "",
+    yearStart: '1960',
+    yearEnd: '',
+    citationsMin: '',
+    citationsMax: '',
     authors: [],
     venues: [],
     accessType: ACCESS_TYPE_OPEN,
@@ -28,10 +28,10 @@ export interface IState {
 }
 
 const ACTION_TYPES = {
-  SET_QUERY: "SET_QUERY",
-  RESET_QUERY: "RESET_QUERY",
-  SET_FILTERS: "SET_FILTERS",
-  RESET_FILTERS: "RESET_FILTERS",
+  SET_QUERY: 'SET_QUERY',
+  RESET_QUERY: 'RESET_QUERY',
+  SET_FILTERS: 'SET_FILTERS',
+  RESET_FILTERS: 'RESET_FILTERS',
 };
 
 const queryReducer = (state: IState, action: IAction): IState => {

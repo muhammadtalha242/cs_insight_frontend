@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 import {
   BarChart,
@@ -9,9 +9,9 @@ import {
   ResponsiveContainer,
   Label,
   Bar,
-} from "recharts";
+} from 'recharts';
 
-import papersCountPerYear from "../../../../public/paper-count-per-year.json";
+import papersCountPerYear from '../../../../public/paper-count-per-year.json';
 
 export default function BarChartReChart() {
   return (

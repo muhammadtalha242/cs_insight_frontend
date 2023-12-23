@@ -1,10 +1,10 @@
-import type { Dimensions, Point, Range } from "../BubbleLineChart.types";
+import type { Dimensions, Point, Range } from '../BubbleLineChart.types';
 
 export function localExtent(
   points: Point[],
   target: Dimensions,
   base: Dimensions,
-  baseDomain: Range,
+  baseDomain: Range
 ): Range {
   if (baseDomain[0] === undefined || baseDomain[1] === undefined) {
     return [undefined, undefined];

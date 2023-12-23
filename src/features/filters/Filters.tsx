@@ -1,23 +1,23 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from 'react';
 
 import {
   DeleteTwoTone,
   CloseCircleTwoTone,
   CheckCircleTwoTone,
-} from "@ant-design/icons";
+} from '@ant-design/icons';
 
-import { Button, InputNumber, Select, Space } from "antd";
+import { Button, InputNumber, Select, Space } from 'antd';
 
-import { Collapsible } from "../../components/Collapsible";
-import Sider, { SiderProps } from "../../components/Sider";
+import { Collapsible } from '../../components/Collapsible';
+import Sider, { SiderProps } from '../../components/Sider';
 import {
   ACCESS_TYPE,
   FIELDS_OF_STUDY,
   TYPES_OF_PAPER,
-} from "../../constants/consts";
-import { useFilter } from "../../context/Filter.context";
+} from '../../constants/consts';
+import { useFilter } from '../../context/Filter.context';
 
-import { FilterContentContainer } from "./Filters.styles";
+import { FilterContentContainer } from './Filters.styles';
 
 export const Filter: React.FC<SiderProps> = ({ collapsed, children }) => {
   const filter = useFilter();
@@ -30,10 +30,10 @@ export const Filter: React.FC<SiderProps> = ({ collapsed, children }) => {
 
   const clearFilters = useCallback(() => {
     filter.setFilter({
-      yearStart: "",
-      yearEnd: "",
-      citationsMin: "",
-      citationsMax: "",
+      yearStart: '',
+      yearEnd: '',
+      citationsMin: '',
+      citationsMax: '',
       authors: [],
       venues: [],
       accessType: null,
@@ -44,11 +44,11 @@ export const Filter: React.FC<SiderProps> = ({ collapsed, children }) => {
     });
   }, []);
   const onChange = (value: string) => {
-    // console.log(`selected ${value}`);
+    console.log(`selected ${value}`);
   };
 
   const onSearch = (value: string) => {
-    // console.log("search:", value);
+    console.log('search:', value);
   };
 
   const typesOfPapers = TYPES_OF_PAPER.map((type) => ({
@@ -67,8 +67,8 @@ export const Filter: React.FC<SiderProps> = ({ collapsed, children }) => {
   // Filter `option.label` match the user type `input`
   const filterOption = (
     input: string,
-    option?: { label: string; value: string },
-  ) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
+    option?: { label: string; value: string }
+  ) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
 
   return (
     <Sider collapsed={collapsed}>
@@ -77,7 +77,7 @@ export const Filter: React.FC<SiderProps> = ({ collapsed, children }) => {
           Clear Filters
         </Button>
         <Collapsible title="Year of Publications">
-          <Space size={"large"}>
+          <Space size={'large'}>
             <InputNumber placeholder="From" size="large" style={{}} />
             <InputNumber placeholder="To" size="large" />
           </Space>
@@ -91,7 +91,7 @@ export const Filter: React.FC<SiderProps> = ({ collapsed, children }) => {
             onSearch={onSearch}
             filterOption={filterOption}
             options={[]}
-            style={{ width: "100%" }}
+            style={{ width: '100%' }}
           />
         </Collapsible>
 
@@ -104,7 +104,7 @@ export const Filter: React.FC<SiderProps> = ({ collapsed, children }) => {
             onSearch={onSearch}
             filterOption={filterOption}
             options={[]}
-            style={{ width: "100%" }}
+            style={{ width: '100%' }}
           />
         </Collapsible>
 
@@ -117,7 +117,7 @@ export const Filter: React.FC<SiderProps> = ({ collapsed, children }) => {
             onSearch={onSearch}
             filterOption={filterOption}
             options={typesOfPapers}
-            style={{ width: "100%" }}
+            style={{ width: '100%' }}
           />
         </Collapsible>
         <Collapsible title="Field of Study">
@@ -129,7 +129,7 @@ export const Filter: React.FC<SiderProps> = ({ collapsed, children }) => {
             onSearch={onSearch}
             filterOption={filterOption}
             options={fieldsOfStudy}
-            style={{ width: "100%" }}
+            style={{ width: '100%' }}
           />
         </Collapsible>
         <Collapsible title="Publishers">
@@ -141,7 +141,7 @@ export const Filter: React.FC<SiderProps> = ({ collapsed, children }) => {
             onSearch={onSearch}
             filterOption={filterOption}
             options={[]}
-            style={{ width: "100%" }}
+            style={{ width: '100%' }}
           />
         </Collapsible>
         <Collapsible title="Access Type">
@@ -153,17 +153,17 @@ export const Filter: React.FC<SiderProps> = ({ collapsed, children }) => {
             onSearch={onSearch}
             filterOption={filterOption}
             options={accessTypes}
-            style={{ width: "100%" }}
+            style={{ width: '100%' }}
           />
         </Collapsible>
 
         <Collapsible title="Citations">
-          <Space size={"large"}>
+          <Space size={'large'}>
             <InputNumber placeholder="Min" size="large" style={{}} />
             <InputNumber placeholder="Max" size="large" />
           </Space>
         </Collapsible>
-        <Space size={"large"}>
+        <Space size={'large'}>
           <Button
             type="default"
             icon={<CheckCircleTwoTone />}

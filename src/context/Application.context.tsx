@@ -1,6 +1,6 @@
-import React, { ReactNode, createContext, useReducer } from "react";
+import React, { ReactNode, createContext, useReducer } from 'react';
 
-import { IAction } from "../types/types";
+import { IAction } from '../types/types';
 
 interface IState {
   isFiltersCollaped: boolean;
@@ -10,7 +10,7 @@ const initialState: IState = {
 };
 
 const ACTION_TYPES = {
-  SET_IS_FILTERS_COLLAPSED: "SET_IS_FILTERS_COLLAPSED",
+  SET_IS_FILTERS_COLLAPSED: 'SET_IS_FILTERS_COLLAPSED',
 };
 
 const applicationReducer = (state: IState, action: IAction): IState => {

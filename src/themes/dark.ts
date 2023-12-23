@@ -1,8 +1,8 @@
-import { interpolateHsl } from "d3-interpolate";
-import { rgba } from "polished";
-import { DefaultTheme } from "styled-components";
+import { interpolateHsl } from 'd3-interpolate';
+import { rgba } from 'polished';
+import { DefaultTheme } from 'styled-components';
 
-import { Color, FontWeight } from "./units";
+import { Color, FontWeight } from './units';
 
 // TODO: use definitions from Color to create theme object, remove redundancies
 const darkTheme: DefaultTheme = {
@@ -580,7 +580,7 @@ const darkTheme: DefaultTheme = {
         range: [
           interpolateHsl(
             interpolateHsl(Color.primary, Color.utilityYellow)(0.25),
-            Color.secondary,
+            Color.secondary
           )(0.25),
           Color.secondary,
         ] as [string, string],

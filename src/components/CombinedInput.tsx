@@ -1,18 +1,18 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import { Button, Input, Select, Space } from "antd";
-import styled from "styled-components";
+import { Button, Input, Select, Space } from 'antd';
+import styled from 'styled-components';
 
-import { StateProps } from "../features/home/Home";
+import { StateProps } from '../features/home/Home';
 
 const options = [
   {
-    value: "papers",
-    label: "Papers",
+    value: 'papers',
+    label: 'Papers',
   },
   {
-    value: "authors",
-    label: "Authors",
+    value: 'authors',
+    label: 'Authors',
   },
 ];
 
@@ -58,12 +58,12 @@ const CombinedInput: React.FC<CombinedInputProps> = ({
         id="search-input"
         onChange={(e) => setQuery(e.target.value)}
         placeholder="5G"
-        style={{ borderRadius: "0px" }}
+        style={{ borderRadius: '0px' }}
       />
       <Button
         type="primary"
         onClick={onSearch}
-        style={{ borderTopLeftRadius: "0px", borderBottomLeftRadius: "0px" }}
+        style={{ borderTopLeftRadius: '0px', borderBottomLeftRadius: '0px' }}
       >
         Search
       </Button>

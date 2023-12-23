@@ -1,10 +1,10 @@
-import { num } from "../format/num";
+import { num } from '../format/num';
 
 import type {
   Formatter,
   LayoutConfig,
   StyleConfig,
-} from "./BubbleLineChart.types";
+} from './BubbleLineChart.types';
 
 export const defaultLayout: LayoutConfig = {
   margin: {
@@ -58,19 +58,19 @@ export const defaultStyles: StyleConfig = {
   text: {
     active: {
       fillOpacity: 1,
-      fill: "",
+      fill: '',
     },
     default: {
       fillOpacity: 0,
-      fill: "",
+      fill: '',
     },
     hovered: {
       fillOpacity: 1,
-      fill: "",
+      fill: '',
     },
     inactive: {
       fillOpacity: 0,
-      fill: "",
+      fill: '',
     },
   },
   labels: {
@@ -80,4 +80,4 @@ export const defaultStyles: StyleConfig = {
   },
 } as const;
 
-export const defaultFormat: Formatter = (d) => (d.r ? num(d.r) : "");
+export const defaultFormat: Formatter = (d) => (d.r ? num(d.r) : '');

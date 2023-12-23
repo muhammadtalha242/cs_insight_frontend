@@ -1,3 +1,3 @@
-import { Filter } from "./Filters";
+import { Filter } from './Filters';
 
 export default Filter;

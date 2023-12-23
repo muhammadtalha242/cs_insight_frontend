@@ -1,7 +1,7 @@
-import { createContext, ReactElement, useContext, useState } from "react";
+import { createContext, ReactElement, useContext, useState } from 'react';
 
-import { ACCESS_TYPE_OPEN, metrics } from "../constants/consts";
-import { Filter } from "../types/types";
+import { ACCESS_TYPE_OPEN, metrics } from '../constants/consts';
+import { Filter } from '../types/types';
 
 const FilterContext = createContext<
   | {
@@ -17,7 +17,7 @@ export function useFilter() {
   const context = useContext(FilterContext);
 
   if (context === undefined) {
-    throw new Error("useFilter must be used within a FilterProvider");
+    throw new Error('useFilter must be used within a FilterProvider');
   }
 
   return context;
@@ -27,10 +27,10 @@ export function FilterProvider(props: {
   children: ReactElement | ReactElement[];
 }) {
   const [filter, setFilter] = useState<Filter>({
-    yearStart: "1960",
-    yearEnd: "",
-    citationsMin: "",
-    citationsMax: "",
+    yearStart: '1960',
+    yearEnd: '',
+    citationsMin: '',
+    citationsMax: '',
     authors: [],
     venues: [],
     accessType: ACCESS_TYPE_OPEN,
