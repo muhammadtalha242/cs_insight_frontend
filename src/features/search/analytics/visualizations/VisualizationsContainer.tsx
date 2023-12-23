@@ -3,7 +3,7 @@ import React, {
   useContext,
   useLayoutEffect,
   useRef,
-  useState,
+  useState
 } from 'react';
 
 import { ApplicationContext } from '../../../../context/Application.context';
@@ -15,7 +15,7 @@ type VisualizationsContainerProps = {
 };
 
 const VisualizationsContainer: React.FC<VisualizationsContainerProps> = ({
-  children,
+  children
 }) => {
   const chartRef = useRef<HTMLDivElement>(null);
   const { state: applicationState } = useContext(ApplicationContext);
@@ -26,7 +26,7 @@ const VisualizationsContainer: React.FC<VisualizationsContainerProps> = ({
     if (chartRef.current) {
       setDimensions({
         width: chartRef.current.clientWidth,
-        height: chartRef.current.clientHeight,
+        height: chartRef.current.clientHeight
       });
 
       console.log(
@@ -42,7 +42,7 @@ const VisualizationsContainer: React.FC<VisualizationsContainerProps> = ({
       style={{
         height: `${dimensions.height}px`,
         width: '99.5%',
-        position: 'relative',
+        position: 'relative'
       }}
     >
       {children}

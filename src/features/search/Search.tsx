@@ -10,13 +10,13 @@ import CombinedInput from '../../components/CombinedInput';
 import Header from '../../components/Header';
 import {
   ApplicationContext,
-  SetFilterCollapsed,
+  SetFilterCollapsed
 } from '../../context/Application.context';
 import {
   QueryContext,
   setQuery,
   resetFilters,
-  resetQueryState,
+  resetQueryState
 } from '../../context/Query.context';
 import Filter from '../filters';
 import { StateProps } from '../home/Home';
@@ -25,7 +25,7 @@ import Analytics from './analytics';
 import {
   MainContentContainer,
   SearchLayoutContainer,
-  VisualizationsTabContainer,
+  VisualizationsTabContainer
 } from './Search.styles';
 import SearchResults from './searchResults';
 
@@ -34,13 +34,13 @@ const SEARCH_ITEMS: TabsProps['items'] = [
     key: 'search-results',
     label: 'Search Results',
     children: <SearchResults />,
-    disabled: true,
+    disabled: true
   },
   {
     key: 'analytics',
     label: 'Analytics',
-    children: <Analytics />,
-  },
+    children: <Analytics />
+  }
 ];
 
 export const Search: React.FC = () => {
@@ -71,7 +71,7 @@ export const Search: React.FC = () => {
 
   const handleFiltersCollapse = () => {
     SetFilterCollapsed(applicationDispatch)({
-      isFiltersCollaped: !isFiltersCollaped,
+      isFiltersCollaped: !isFiltersCollaped
     });
   };
 
@@ -84,7 +84,7 @@ export const Search: React.FC = () => {
         <CombinedInput
           initialValues={{
             dataSet: queryState.dataSet,
-            query: queryState.query,
+            query: queryState.query
           }}
           onSubmit={onSubmit}
         />
@@ -101,7 +101,7 @@ export const Search: React.FC = () => {
           style={{
             fontSize: '16px',
             width: 64,
-            height: 64,
+            height: 64
           }}
         >
           Filters

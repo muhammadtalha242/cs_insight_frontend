@@ -18,5 +18,5 @@ export const VisualizationsTabContainer = styled(
 )<VisualizationsTabContainerStyleProps>`
   padding: 0 ${Size.xl} 0 ${Size.lm};
   transition: flex-basis 0.5s ease;
-  flex: ${(props) => props.flex};
+  flex: ${props => props.flex};
 `;

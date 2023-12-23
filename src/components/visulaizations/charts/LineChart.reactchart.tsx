@@ -8,7 +8,7 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  Label,
+  Label
 } from 'recharts';
 
 import papersCountPerYear from '../../../../public/paper-count-per-year.json';
@@ -22,7 +22,7 @@ export default function LineChartReChart() {
           top: 5,
           right: 30,
           left: 20,
-          bottom: 15,
+          bottom: 15
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />

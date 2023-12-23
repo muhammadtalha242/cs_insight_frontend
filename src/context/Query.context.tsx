@@ -17,8 +17,8 @@ export const initialState: IState = {
     typesOfPaper: [],
     fieldsOfStudy: [],
     publishers: [],
-    metric: metrics[0].value,
-  },
+    metric: metrics[0].value
+  }
 };
 
 export interface IState {
@@ -31,7 +31,7 @@ const ACTION_TYPES = {
   SET_QUERY: 'SET_QUERY',
   RESET_QUERY: 'RESET_QUERY',
   SET_FILTERS: 'SET_FILTERS',
-  RESET_FILTERS: 'RESET_FILTERS',
+  RESET_FILTERS: 'RESET_FILTERS'
 };
 
 const queryReducer = (state: IState, action: IAction): IState => {
@@ -39,14 +39,14 @@ const queryReducer = (state: IState, action: IAction): IState => {
     case ACTION_TYPES.SET_FILTERS: {
       return {
         ...state,
-        filters: { ...action.payload },
+        filters: { ...action.payload }
       };
     }
 
     case ACTION_TYPES.SET_QUERY: {
       return {
         ...state,
-        ...action.payload,
+        ...action.payload
       };
     }
 
@@ -54,14 +54,14 @@ const queryReducer = (state: IState, action: IAction): IState => {
       return {
         ...state,
         dataSet: initialState.dataSet,
-        query: initialState.query,
+        query: initialState.query
       };
     }
 
     case ACTION_TYPES.RESET_FILTERS: {
       return {
         ...state,
-        filters: initialState.filters,
+        filters: initialState.filters
       };
     }
 

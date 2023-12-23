@@ -31,14 +31,14 @@ export const Home: React.FC = () => {
   const { state: queryState, dispatch } = useContext(QueryContext);
   const [values, setValues] = useState<StateProps>({
     dataSet: queryState.dataSet,
-    query: queryState.query,
+    query: queryState.query
   });
 
   const navigate = useNavigate();
 
   const onSubmit = useCallback(
     (updatedValues: StateProps) => {
-      setValues((prev) => ({ ...prev, ...updatedValues }));
+      setValues(prev => ({ ...prev, ...updatedValues }));
       setQuery(dispatch)(updatedValues);
       // console.log("{ ...prev, ...updatedValues }", { ...updatedValues });
 

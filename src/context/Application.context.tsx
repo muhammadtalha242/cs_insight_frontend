@@ -6,11 +6,11 @@ interface IState {
   isFiltersCollaped: boolean;
 }
 const initialState: IState = {
-  isFiltersCollaped: false,
+  isFiltersCollaped: false
 };
 
 const ACTION_TYPES = {
-  SET_IS_FILTERS_COLLAPSED: 'SET_IS_FILTERS_COLLAPSED',
+  SET_IS_FILTERS_COLLAPSED: 'SET_IS_FILTERS_COLLAPSED'
 };
 
 const applicationReducer = (state: IState, action: IAction): IState => {
@@ -18,7 +18,7 @@ const applicationReducer = (state: IState, action: IAction): IState => {
     case ACTION_TYPES.SET_IS_FILTERS_COLLAPSED:
       return {
         ...state,
-        isFiltersCollaped: action.payload,
+        isFiltersCollaped: action.payload
       };
 
     default: {
@@ -33,7 +33,7 @@ export const SetFilterCollapsed =
     if (dispatch)
       dispatch({
         type: ACTION_TYPES.SET_IS_FILTERS_COLLAPSED,
-        payload: params.isFiltersCollaped,
+        payload: params.isFiltersCollaped
       });
   };
 

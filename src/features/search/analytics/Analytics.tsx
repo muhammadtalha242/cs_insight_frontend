@@ -13,18 +13,18 @@ const visualizationsAll: TabsProps['items'] = [
     label: 'Distribution of Papers',
     forceRender: true,
     destroyInactiveTabPane: true,
-    children: <DistributionOverTime />,
+    children: <DistributionOverTime />
   },
   {
     key: '2',
     label: 'Tab 2',
-    children: 'Content of Tab Pane 2',
+    children: 'Content of Tab Pane 2'
   },
   {
     key: '3',
     label: 'Tab 3',
-    children: 'Content of Tab Pane 3',
-  },
+    children: 'Content of Tab Pane 3'
+  }
 ];
 // const visualizationsSelected: TabsProps["items"] = [];
 

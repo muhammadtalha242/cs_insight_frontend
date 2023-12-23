@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import {
   DeleteTwoTone,
   CloseCircleTwoTone,
-  CheckCircleTwoTone,
+  CheckCircleTwoTone
 } from '@ant-design/icons';
 
 import { Button, InputNumber, Select, Space } from 'antd';
@@ -13,7 +13,7 @@ import Sider, { SiderProps } from '../../components/Sider';
 import {
   ACCESS_TYPE,
   FIELDS_OF_STUDY,
-  TYPES_OF_PAPER,
+  TYPES_OF_PAPER
 } from '../../constants/consts';
 import { useFilter } from '../../context/Filter.context';
 
@@ -40,7 +40,7 @@ export const Filter: React.FC<SiderProps> = ({ collapsed, children }) => {
       typesOfPaper: [],
       fieldsOfStudy: [],
       publishers: [],
-      metric: filter.filter.metric,
+      metric: filter.filter.metric
     });
   }, []);
   const onChange = (value: string) => {
@@ -51,17 +51,17 @@ export const Filter: React.FC<SiderProps> = ({ collapsed, children }) => {
     console.log('search:', value);
   };
 
-  const typesOfPapers = TYPES_OF_PAPER.map((type) => ({
+  const typesOfPapers = TYPES_OF_PAPER.map(type => ({
     value: type,
-    label: type.toLocaleUpperCase(),
+    label: type.toLocaleUpperCase()
   }));
-  const fieldsOfStudy = FIELDS_OF_STUDY.map((type) => ({
+  const fieldsOfStudy = FIELDS_OF_STUDY.map(type => ({
     value: type,
-    label: type.toLocaleUpperCase(),
+    label: type.toLocaleUpperCase()
   }));
-  const accessTypes = ACCESS_TYPE.map((type) => ({
+  const accessTypes = ACCESS_TYPE.map(type => ({
     value: type,
-    label: type.toLocaleUpperCase(),
+    label: type.toLocaleUpperCase()
   }));
 
   // Filter `option.label` match the user type `input`

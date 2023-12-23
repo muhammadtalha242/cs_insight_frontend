@@ -8,12 +8,12 @@ import { StateProps } from '../features/home/Home';
 const options = [
   {
     value: 'papers',
-    label: 'Papers',
+    label: 'Papers'
   },
   {
     value: 'authors',
-    label: 'Authors',
-  },
+    label: 'Authors'
+  }
 ];
 
 type CombinedInputProps = {
@@ -30,7 +30,7 @@ const CombinedInputStyledContainer = styled(Space.Compact)`
 
 const CombinedInput: React.FC<CombinedInputProps> = ({
   initialValues: { query: inialQuery, dataSet: intialDataset },
-  onSubmit,
+  onSubmit
 }) => {
   const [query, setQuery] = useState(() => inialQuery);
   const [dataSet, setDataSet] = useState(() => intialDataset);
@@ -49,14 +49,14 @@ const CombinedInput: React.FC<CombinedInputProps> = ({
         options={options}
         value={dataSet}
         id="search-type"
-        onChange={(e) => setDataSet(e)}
+        onChange={e => setDataSet(e)}
       />
       <Input
         defaultValue="5G"
         name="query"
         value={query}
         id="search-input"
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={e => setQuery(e.target.value)}
         placeholder="5G"
         style={{ borderRadius: '0px' }}
       />

@@ -3,7 +3,7 @@ import React, { ReactNode, useState } from 'react';
 import {
   InfoCircleOutlined,
   RightOutlined,
-  DownOutlined,
+  DownOutlined
 } from '@ant-design/icons';
 
 import styled from 'styled-components';
@@ -41,12 +41,12 @@ const LabelFilterContainer = styled.label`
 
 export const Collapsible: React.FC<CollapsibleProps> = ({
   children,
-  title,
+  title
 }) => {
   const [isCollapsed, setIsCollapsed] = useState(true);
 
   const handleClick = () => {
-    setIsCollapsed((prev) => !prev);
+    setIsCollapsed(prev => !prev);
   };
 
   return (

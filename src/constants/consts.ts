@@ -19,7 +19,7 @@ export const TYPES_OF_PAPER = [
   'incollection',
   'proceedings',
   'phdthesis',
-  'mastersthesis',
+  'mastersthesis'
 ];
 
 export const FIELDS_OF_STUDY = [
@@ -41,7 +41,7 @@ export const FIELDS_OF_STUDY = [
   'Physics',
   'Political Science',
   'Psychology',
-  'Sociology',
+  'Sociology'
 ];
 
 export const ACCESS_TYPE_OPEN = 'Open';
@@ -58,5 +58,5 @@ export const GRID_DECIMAL_PLACES = 2;
 export const NA = 'Others';
 export const metrics = [
   { label: '#Citations', value: 'inCitationsCount' },
-  { label: '#Papers', value: 'papersCount' },
+  { label: '#Papers', value: 'papersCount' }
 ];

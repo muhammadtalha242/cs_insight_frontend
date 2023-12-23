@@ -37,7 +37,7 @@ export function FilterProvider(props: {
     typesOfPaper: [],
     fieldsOfStudy: [],
     publishers: [],
-    metric: metrics[0].value,
+    metric: metrics[0].value
   });
 
   const [oldFilter, setOldFilter] = useState<Filter>(filter);
@@ -48,7 +48,7 @@ export function FilterProvider(props: {
         filter: filter,
         setFilter: setFilter,
         oldFilter: oldFilter,
-        setOldFilter: setOldFilter,
+        setOldFilter: setOldFilter
       }}
     >
       {props.children}

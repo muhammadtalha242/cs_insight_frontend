@@ -22,22 +22,22 @@ const ContentStyledContainer = styled(Content)``;
 const footerStyle: React.CSSProperties = {
   textAlign: 'center',
   color: '#fff',
-  backgroundColor: '#4096ff',
+  backgroundColor: '#4096ff'
 };
 
 const layoutStyle: React.CSSProperties = {
-  display: 'flex',
+  display: 'flex'
 };
 
 const Routes = createBrowserRouter([
   {
     path: '/',
-    element: <Home />,
+    element: <Home />
   },
   {
     path: '/search/:dataSet',
-    element: <Search />,
-  },
+    element: <Search />
+  }
 ]);
 const App: React.FC = () => (
   <ConfigProvider
@@ -48,7 +48,7 @@ const App: React.FC = () => (
         // borderRadius: 2,
         // // Alias Token
         // colorBgContainer: "#f6ffed",
-      },
+      }
     }}
   >
     <Layout>

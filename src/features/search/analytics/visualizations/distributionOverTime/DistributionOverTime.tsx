@@ -8,7 +8,7 @@ import VisualizationsContainer from '../VisualizationsContainer';
 
 const VISUALIZATIONS_OPTIONS = [
   { label: 'Line Chart', value: 'line-chart' },
-  { label: 'Bar Chart', value: 'bar-chart' },
+  { label: 'Bar Chart', value: 'bar-chart' }
 ];
 
 const DistributionOverTime: React.FC = () => {

@@ -13,9 +13,9 @@ const narBarMenuItems: MenuProps['items'] = [
     children: [
       { key: 'Papers', label: <>Paper</> },
       { key: 'Authors', label: <>Authors</> },
-      { key: 'Venues', label: <>Venues</> },
-    ],
-  },
+      { key: 'Venues', label: <>Venues</> }
+    ]
+  }
 ];
 const NavbarMenuContainer = styled(Menu)`
   width: -webkit-fill-available;

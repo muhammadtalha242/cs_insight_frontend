@@ -19,7 +19,7 @@ const headerStyle: React.CSSProperties = {
   color: '#fff',
   height: 64,
   paddingInline: 48,
-  lineHeight: '64px',
+  lineHeight: '64px'
 };
 
 const Header: React.FC<{ children?: ReactNode }> = ({ children }) => {

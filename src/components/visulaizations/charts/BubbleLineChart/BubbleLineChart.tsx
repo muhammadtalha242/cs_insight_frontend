@@ -28,10 +28,10 @@ export const BubbleLineChart: React.FC<BubbleLineChartProps> = ({ data }) => {
   const chartRef = useRef<SVGSVGElement>(null);
 
   const extentX = useMemo<Range>(
-    () => d3.extent(data, (d) => d.x) as [number, number],
+    () => d3.extent(data, d => d.x) as [number, number],
     [data]
   );
-  const maxY = useMemo(() => d3.max(data, (d) => d.y), [data]);
+  const maxY = useMemo(() => d3.max(data, d => d.y), [data]);
 
   useLayoutEffect(() => {
     if (!chartRef.current || !data.length) return;
@@ -50,23 +50,23 @@ export const BubbleLineChart: React.FC<BubbleLineChartProps> = ({ data }) => {
 
     const xScale = d3.scaleLinear(extentX, [
       layout.margin.left,
-      width - layout.margin.right,
+      width - layout.margin.right
     ]);
 
     const yScale = d3.scaleLinear([0, maxY] as [number, number], [
       height - layout.margin.bottom,
-      layout.margin.top,
+      layout.margin.top
     ]);
 
     const rScale = d3
       .scaleLinear()
-      .domain([0, d3.max(data, (d) => d.y)] as [number, number])
+      .domain([0, d3.max(data, d => d.y)] as [number, number])
       .range([2, 20]);
 
     const line = d3
       .line<DataPoint>()
-      .x((d) => xScale(d.x) || 0)
-      .y((d) => yScale(d.y) || 0);
+      .x(d => xScale(d.x) || 0)
+      .y(d => yScale(d.y) || 0);
 
     const svg = d3.select(chartRef.current);
 
@@ -79,7 +79,7 @@ export const BubbleLineChart: React.FC<BubbleLineChartProps> = ({ data }) => {
       .attr('height', height)
       .on('pointerenter pointermove', pointermoved)
       .on('pointerleave', pointerleft)
-      .on('touchstart', (event) => event.preventDefault())
+      .on('touchstart', event => event.preventDefault())
       .transition(t)
       .style('-webkit-tap-highlight-color', 'transparent')
       .style('overflow', 'visible');
@@ -87,7 +87,7 @@ export const BubbleLineChart: React.FC<BubbleLineChartProps> = ({ data }) => {
     svg
       .append('g')
       .attr('transform', `translate(0,${height - layout.margin.bottom})`)
-      .call((g) =>
+      .call(g =>
         g
           .append('text')
           .attr('x', width - layout.margin.right)
@@ -107,7 +107,7 @@ export const BubbleLineChart: React.FC<BubbleLineChartProps> = ({ data }) => {
     svg
       .append('g')
       .attr('transform', `translate(${layout.margin.left},0)`)
-      .call((g) =>
+      .call(g =>
         g
           .append('text')
           .attr('x', -layout.margin.left)
@@ -123,7 +123,7 @@ export const BubbleLineChart: React.FC<BubbleLineChartProps> = ({ data }) => {
           .ticks(height / 40)
           .tickSizeInner(5)
       )
-      .call((g) =>
+      .call(g =>
         g
           .selectAll('.tick line')
           .attr('x2', width - layout.margin.left - layout.margin.right)
@@ -143,10 +143,10 @@ export const BubbleLineChart: React.FC<BubbleLineChartProps> = ({ data }) => {
       .data(data)
       .enter()
       .append('circle')
-      .attr('cx', (d) => xScale(d.x))
-      .attr('cy', (d) => yScale(d.y))
+      .attr('cx', d => xScale(d.x))
+      .attr('cy', d => yScale(d.y))
       .transition(t)
-      .attr('r', (d) => rScale(d.y / (maxY || 1)))
+      .attr('r', d => rScale(d.y / (maxY || 1)))
       .attr('fill', 'steelblue');
 
     const tooltip = svg.append('g');
@@ -154,13 +154,13 @@ export const BubbleLineChart: React.FC<BubbleLineChartProps> = ({ data }) => {
     function formatNumber(value: number) {
       return value.toLocaleString('en', {
         style: 'decimal',
-        maximumFractionDigits: 2,
+        maximumFractionDigits: 2
       });
     }
 
     function formatDate(date: number) {
       return new Date(date, 0).toLocaleString('en', {
-        year: 'numeric',
+        year: 'numeric'
       });
     }
 
@@ -189,18 +189,18 @@ export const BubbleLineChart: React.FC<BubbleLineChartProps> = ({ data }) => {
         .selectAll('text')
         .data([,])
         .join('text')
-        .call((text) =>
+        .call(text =>
           text
             .selectAll('tspan')
             .data([
               `years: ${formatDate(data[i].x)}`,
-              `papers: ${formatNumber(data[i].y)}`,
+              `papers: ${formatNumber(data[i].y)}`
             ])
             .join('tspan')
             .attr('x', 0)
             .attr('y', (_, i) => `${i * 1.1}em`)
             .attr('font-weight', (_, i) => (i ? null : 'bold'))
-            .text((d) => d)
+            .text(d => d)
         );
 
       size(text, path);
