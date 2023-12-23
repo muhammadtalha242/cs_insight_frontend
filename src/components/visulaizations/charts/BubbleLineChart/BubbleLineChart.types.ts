@@ -1,4 +1,4 @@
-import { ValueFn } from 'd3-selection';
+import { ValueFn } from "d3-selection";
 
 export type Point = {
   x: number;
@@ -11,7 +11,7 @@ export type LineData = {
 };
 
 export type Range = [number, number] | [undefined, undefined];
-export type Dimensions = 'x' | 'y' | 'r';
+export type Dimensions = "x" | "y" | "r";
 
 export type LayoutConfig = {
   margin: {
@@ -47,8 +47,8 @@ export type LabelStyleConfig = {
   fontFamily: string;
 };
 
-export type Status = 'default' | 'active' | 'inactive';
-export type PointStatus = Status | 'hovered';
+export type Status = "default" | "active" | "inactive";
+export type PointStatus = Status | "hovered";
 
 export type StyleConfig = {
   circle: Record<PointStatus, CircleStyleConfig>;
@@ -65,10 +65,10 @@ export type Handler = {
 export type Formatter = (d: Point) => string;
 
 export type CurveType =
-  | 'monotone'
-  | 'linear'
-  | 'basis'
-  | 'step'
-  | 'step-after'
-  | 'step-before'
-  | 'natural';
+  | "monotone"
+  | "linear"
+  | "basis"
+  | "step"
+  | "step-after"
+  | "step-before"
+  | "natural";

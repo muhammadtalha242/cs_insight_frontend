@@ -5,8 +5,11 @@ import React, {
   useMemo,
   useRef,
 } from "react";
+
 import * as d3 from "d3";
+
 import { ApplicationContext } from "../../../../context/Application.context";
+
 import {
   defaultFormat,
   defaultLayout as layout,
@@ -26,7 +29,7 @@ type Range = [number, number];
 
 /*//TODO
 1. create wrapper, margins, and bounded structure for all visualizations
-2. use declaritive ways to create charts ->  
+2. use declaritive ways to create charts ->
 3. add transitions on entry and exit of charts
 */
 export const BubbleLineChart: React.FC<BubbleLineChartProps> = ({ data }) => {
@@ -36,12 +39,13 @@ export const BubbleLineChart: React.FC<BubbleLineChartProps> = ({ data }) => {
 
   const extentX = useMemo<Range>(
     () => d3.extent(data, (d) => d.x) as [number, number],
-    [data]
+    [data],
   );
   const maxY = useMemo(() => d3.max(data, (d) => d.y), [data]);
 
   useLayoutEffect(() => {
     if (!chartRef.current || !data.length) return;
+
     if (data && chartRef.current) {
       const containerWidth = chartRef.current.clientWidth;
       const containerHeight = chartRef.current.clientHeight;
@@ -100,14 +104,14 @@ export const BubbleLineChart: React.FC<BubbleLineChartProps> = ({ data }) => {
           .attr("y", layout.margin.bottom + 20)
           .attr("fill", "currentColor")
           .attr("text-anchor", "end")
-          .text("Years")
+          .text("Years"),
       )
       .transition(t)
       .call(
         d3
           .axisBottom(xScale)
           .ticks(width / 50)
-          .tickSizeOuter(5)
+          .tickSizeOuter(5),
       );
 
     svg
@@ -120,20 +124,20 @@ export const BubbleLineChart: React.FC<BubbleLineChartProps> = ({ data }) => {
           .attr("y", 10)
           .attr("fill", "currentColor")
           .attr("text-anchor", "start")
-          .text("Number of Papers")
+          .text("Number of Papers"),
       )
       .transition(t)
       .call(
         d3
           .axisLeft(yScale)
           .ticks(height / 40)
-          .tickSizeInner(5)
+          .tickSizeInner(5),
       )
       .call((g) =>
         g
           .selectAll(".tick line")
           .attr("x2", width - layout.margin.left - layout.margin.right)
-          .attr("stroke-opacity", 0.4)
+          .attr("stroke-opacity", 0.4),
       );
 
     svg
@@ -174,12 +178,14 @@ export const BubbleLineChart: React.FC<BubbleLineChartProps> = ({ data }) => {
 
     function pointermoved(event: any) {
       const i = bisect(data, xScale.invert(d3.pointer(event)[0]));
+
       tooltip.style("display", null);
+
       tooltip.attr(
         "transform",
         `translate(${xScale(new Date(data[i].x)) || 0},${
           yScale(data[i].y) || 0
-        })`
+        })`,
       );
 
       const path = tooltip
@@ -204,7 +210,7 @@ export const BubbleLineChart: React.FC<BubbleLineChartProps> = ({ data }) => {
             .attr("x", 0)
             .attr("y", (_, i) => `${i * 1.1}em`)
             .attr("font-weight", (_, i) => (i ? null : "bold"))
-            .text((d) => d)
+            .text((d) => d),
         );
 
       size(text, path);
@@ -216,10 +222,12 @@ export const BubbleLineChart: React.FC<BubbleLineChartProps> = ({ data }) => {
 
     function size(text: any, path: any) {
       const { y, width: w, height: h } = text.node().getBBox();
+
       text.attr("transform", `translate(${-w / 2},${15 - y})`);
+
       path.attr(
         "d",
-        `M${-w / 2 - 10},5H-5l5,-5l5,5H${w / 2 + 10}v${h + 20}h-${w + 20}z`
+        `M${-w / 2 - 10},5H-5l5,-5l5,5H${w / 2 + 10}v${h + 20}h-${w + 20}z`,
       );
     }
   };

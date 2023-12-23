@@ -1,16 +1,17 @@
 import React from "react";
-import { ConfigProvider, Layout } from "antd";
+
 import { Footer } from "antd/es/layout/layout";
-import styled from "styled-components";
+
+import { ConfigProvider, Layout } from "antd";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import styled, { ThemeProvider } from "styled-components";
+
+import { Provider as ApplicationContextProvider } from "./context/Application.context";
 import { FilterProvider } from "./context/Filter.context";
 import { Provider as QueryContextProvider } from "./context/Query.context";
-import { Provider as ApplicationContextProvider } from "./context/Application.context";
-import { ThemeProvider } from "styled-components";
-import { darkTheme } from "./themes";
-
 import Home from "./features/home";
 import Search from "./features/search";
+import { darkTheme } from "./themes";
 
 import "./App.css";
 

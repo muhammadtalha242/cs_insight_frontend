@@ -1,3 +1,3 @@
 import styled from "styled-components";
 
-export const VisualizationContainer = styled.div``
+export const VisualizationContainer = styled.div``;

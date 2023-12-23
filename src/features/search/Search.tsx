@@ -1,30 +1,33 @@
 import React, { useContext } from "react";
-import { Button } from "antd";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import type { TabsProps } from "antd";
+
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
+
+import { Button } from "antd";
+import type { TabsProps } from "antd";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 
 import CombinedInput from "../../components/CombinedInput";
 import Header from "../../components/Header";
-import { StateProps } from "../home/Home";
-import Analytics from "./analytics";
-import SearchResults from "./searchResults";
-import Filter from "../filters";
+import {
+  ApplicationContext,
+  SetFilterCollapsed,
+} from "../../context/Application.context";
 import {
   QueryContext,
   setQuery,
   resetFilters,
   resetQueryState,
 } from "../../context/Query.context";
+import Filter from "../filters";
+import { StateProps } from "../home/Home";
+
+import Analytics from "./analytics";
 import {
   MainContentContainer,
   SearchLayoutContainer,
   VisualizationsTabContainer,
 } from "./Search.styles";
-import {
-  ApplicationContext,
-  SetFilterCollapsed,
-} from "../../context/Application.context";
+import SearchResults from "./searchResults";
 
 const SEARCH_ITEMS: TabsProps["items"] = [
   {
@@ -57,7 +60,7 @@ export const Search: React.FC = () => {
   };
 
   const onChange = (key: string) => {
-    console.log(key);
+    // console.log(key);
   };
 
   const sendHome = () => {

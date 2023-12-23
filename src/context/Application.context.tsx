@@ -1,4 +1,5 @@
 import React, { ReactNode, createContext, useReducer } from "react";
+
 import { IAction } from "../types/types";
 
 interface IState {
@@ -19,6 +20,7 @@ const applicationReducer = (state: IState, action: IAction): IState => {
         ...state,
         isFiltersCollaped: action.payload,
       };
+
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
     }
@@ -42,12 +44,14 @@ const Context = () => {
   }>(null!);
   const Provider = ({ children }: { children: ReactNode }) => {
     const [state, dispatch] = useReducer(applicationReducer, initialState);
+
     return (
       <ApplicationContext.Provider value={{ state, dispatch }}>
         {children}
       </ApplicationContext.Provider>
     );
   };
+
   return { ApplicationContext, Provider };
 };
 

@@ -1,20 +1,23 @@
 import React, { useCallback, useEffect, useRef } from "react";
-import Sider, { SiderProps } from "../../components/Sider";
-import { Button, InputNumber, Select, Space } from "antd";
+
 import {
   DeleteTwoTone,
   CloseCircleTwoTone,
   CheckCircleTwoTone,
 } from "@ant-design/icons";
 
-import { useFilter } from "../../context/Filter.context";
-import { FilterContentContainer } from "./Filters.styles";
+import { Button, InputNumber, Select, Space } from "antd";
+
+import { Collapsible } from "../../components/Collapsible";
+import Sider, { SiderProps } from "../../components/Sider";
 import {
   ACCESS_TYPE,
   FIELDS_OF_STUDY,
   TYPES_OF_PAPER,
 } from "../../constants/consts";
-import { Collapsible } from "../../components/Collapsible";
+import { useFilter } from "../../context/Filter.context";
+
+import { FilterContentContainer } from "./Filters.styles";
 
 export const Filter: React.FC<SiderProps> = ({ collapsed, children }) => {
   const filter = useFilter();
@@ -41,11 +44,11 @@ export const Filter: React.FC<SiderProps> = ({ collapsed, children }) => {
     });
   }, []);
   const onChange = (value: string) => {
-    console.log(`selected ${value}`);
+    // console.log(`selected ${value}`);
   };
 
   const onSearch = (value: string) => {
-    console.log("search:", value);
+    // console.log("search:", value);
   };
 
   const typesOfPapers = TYPES_OF_PAPER.map((type) => ({
@@ -64,8 +67,9 @@ export const Filter: React.FC<SiderProps> = ({ collapsed, children }) => {
   // Filter `option.label` match the user type `input`
   const filterOption = (
     input: string,
-    option?: { label: string; value: string }
+    option?: { label: string; value: string },
   ) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
+
   return (
     <Sider collapsed={collapsed}>
       <FilterContentContainer>

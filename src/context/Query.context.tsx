@@ -1,6 +1,7 @@
 import React, { ReactNode, createContext, useReducer } from "react";
-import { DataSets, Filter, IAction } from "../types/types";
+
 import { ACCESS_TYPE_OPEN, metrics } from "../constants/consts";
+import { DataSets, Filter, IAction } from "../types/types";
 
 export const initialState: IState = {
   dataSet: "papers",
@@ -41,12 +42,14 @@ const queryReducer = (state: IState, action: IAction): IState => {
         filters: { ...action.payload },
       };
     }
+
     case ACTION_TYPES.SET_QUERY: {
       return {
         ...state,
         ...action.payload,
       };
     }
+
     case ACTION_TYPES.RESET_QUERY: {
       return {
         ...state,
@@ -54,12 +57,14 @@ const queryReducer = (state: IState, action: IAction): IState => {
         query: initialState.query,
       };
     }
+
     case ACTION_TYPES.RESET_FILTERS: {
       return {
         ...state,
         filters: initialState.filters,
       };
     }
+
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
     }
@@ -95,12 +100,14 @@ const Context = () => {
   }>(null!);
   const Provider = ({ children }: { children: ReactNode }) => {
     const [state, dispatch] = useReducer(queryReducer, initialState);
+
     return (
       <QueryContext.Provider value={{ state, dispatch }}>
         {children}
       </QueryContext.Provider>
     );
   };
+
   return { QueryContext, Provider };
 };
 

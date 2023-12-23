@@ -1,5 +1,7 @@
 import React, { ReactNode } from "react";
+
 import styled from "styled-components";
+
 import { Color } from "../themes";
 
 const SiderContainer = styled.aside`
@@ -21,6 +23,7 @@ export type SiderProps = {
   collapsed: boolean;
   children?: ReactNode;
 };
+
 const Sider: React.FC<SiderProps> = ({ children, collapsed }) => {
   return (
     <SiderContainer className={collapsed ? "collapsed" : ""}>

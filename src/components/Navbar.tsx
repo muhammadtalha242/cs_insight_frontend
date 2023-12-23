@@ -20,6 +20,7 @@ const narBarMenuItems: MenuProps["items"] = [
 const NavbarMenuContainer = styled(Menu)`
   width: -webkit-fill-available;
 `;
+
 export const Navbar: React.FC = () => {
   return (
     <NavbarMenuContainer

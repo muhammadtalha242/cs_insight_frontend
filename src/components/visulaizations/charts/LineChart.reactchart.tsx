@@ -1,3 +1,4 @@
+import * as d3 from "d3";
 import {
   LineChart,
   DotProps,
@@ -9,8 +10,8 @@ import {
   ResponsiveContainer,
   Label,
 } from "recharts";
+
 import papersCountPerYear from "../../../../public/paper-count-per-year.json";
-import * as d3 from "d3";
 
 const max = d3.max(papersCountPerYear, (d) => d.count) || 1;
 
@@ -28,10 +29,9 @@ const CustomizedToolTipContent = ({ active, payload, label }: any) => {
 };
 
 const Dot = (props: DotProps) => {
-  console.log("props", props);
-
   return <></>;
 };
+
 export default function LineChartReChart() {
   return (
     <ResponsiveContainer width="100%" height="100%">

@@ -1,11 +1,15 @@
 import React, { ReactNode, useState } from "react";
-import styled from "styled-components";
-import { Spacing } from "../themes";
+
 import {
   InfoCircleOutlined,
   RightOutlined,
   DownOutlined,
 } from "@ant-design/icons";
+
+import styled from "styled-components";
+
+import { Spacing } from "../themes";
+
 type CollapsibleProps = {
   children?: ReactNode;
   title: string;

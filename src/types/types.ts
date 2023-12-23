@@ -1,4 +1,3 @@
-
 export interface BarChartProps {
   xDimension: string;
   route: string;
@@ -137,7 +136,13 @@ export type Status = {
   version: string;
 };
 export type LdaVisData = {
-  mdsDat: { x: number[]; y: number[]; topics: number[]; cluster: number[]; Freq: number[] };
+  mdsDat: {
+    x: number[];
+    y: number[];
+    topics: number[];
+    cluster: number[];
+    Freq: number[];
+  };
   tinfo: {
     Term: string[];
     Freq: number[];
@@ -146,15 +151,15 @@ export type LdaVisData = {
     logprob: number[];
     loglift: number[];
   };
-  'token.table': {
+  "token.table": {
     Topic: number[];
     Freq: number[];
     Term: string[];
   };
   R: string;
-  'lambda.step': number;
-  'plot.opts': { xlab: string; ylab: string };
-  'topic.order': number[];
+  "lambda.step": number;
+  "plot.opts": { xlab: string; ylab: string };
+  "topic.order": number[];
 };
 
 export type AuthContextType = {
@@ -163,8 +168,7 @@ export type AuthContextType = {
   logout: () => void;
 };
 
-export type DataSets = 'papers' | 'authors' | 'venues'
-
+export type DataSets = "papers" | "authors" | "venues";
 
 export type IAction = {
   type: string;

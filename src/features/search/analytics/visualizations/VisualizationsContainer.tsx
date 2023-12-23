@@ -6,12 +6,14 @@ import React, {
   useState,
 } from "react";
 
-import { VisualizationContainer } from "./Visualizations.styles";
 import { ApplicationContext } from "../../../../context/Application.context";
+
+import { VisualizationContainer } from "./Visualizations.styles";
 
 type VisualizationsContainer = {
   children: ReactNode;
 };
+
 const VisualizationsContainer: React.FC<VisualizationsContainer> = ({
   children,
 }) => {
@@ -26,9 +28,10 @@ const VisualizationsContainer: React.FC<VisualizationsContainer> = ({
         width: chartRef.current.clientWidth,
         height: chartRef.current.clientHeight,
       });
+
       console.log(
         "chartRef.current.clientHeight",
-        chartRef.current.clientHeight
+        chartRef.current.clientHeight,
       );
     }
   }, [isFiltersCollaped]);

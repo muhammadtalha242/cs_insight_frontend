@@ -1,10 +1,12 @@
 import React, { useCallback, useContext, useState } from "react";
+
 import { Button, Layout, Space } from "antd";
-import CombinedInput from "../../components/CombinedInput";
-import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { DataSets } from "../../types/types";
+import styled from "styled-components";
+
+import CombinedInput from "../../components/CombinedInput";
 import { QueryContext, setQuery } from "../../context/Query.context";
+import { DataSets } from "../../types/types";
 
 const { Content } = Layout;
 
@@ -42,7 +44,7 @@ export const Home: React.FC = () => {
 
       navigate(`/search/${updatedValues.dataSet}?query=${updatedValues.query}`);
     },
-    [dispatch]
+    [dispatch],
   );
 
   const handleChangeView = useCallback((dataSet: DataSets) => {

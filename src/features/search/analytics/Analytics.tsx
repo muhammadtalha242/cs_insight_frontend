@@ -1,8 +1,9 @@
 import React from "react";
+
 import type { TabsProps } from "antd";
 
-import DistributionOverTime from "./visualizations/distributionOverTime/DistributionOverTime";
 import { AnalyticsContainer, AnalyticsTabs } from "./Analytics.styles";
+import DistributionOverTime from "./visualizations/distributionOverTime/DistributionOverTime";
 
 export type ColorMap = Record<string, string>;
 
@@ -29,7 +30,7 @@ const visualizationsSelected: TabsProps["items"] = [];
 
 export const Analytics: React.FC = () => {
   const onChange = (key: string) => {
-    console.log(key);
+    // console.log(key);
   };
 
   return (
