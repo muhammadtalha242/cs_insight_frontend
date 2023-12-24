@@ -1,7 +1,7 @@
 import { createContext, ReactElement, useContext, useState } from 'react';
 
 import { ACCESS_TYPE_OPEN, metrics } from '../constants/consts';
-import { Filter } from '../types/types';
+import { Filter } from '../constants/types';
 
 const FilterContext = createContext<
   | {
