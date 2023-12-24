@@ -1,16 +1,16 @@
-export const ROUTE_HOME = '/';
-export const ROUTE_LOGIN = '/login';
-export const ROUTE_REGISTER = '/register';
-export const ROUTE_ACCOUNT = '/account';
-export const ROUTE_PASSWORD = '/forgotpassword';
-export const ROUTE_PAPERS = '/papers';
-export const ROUTE_AUTHORS = '/authors';
-export const ROUTE_VENUES = '/venues';
-export const ROUTE_TYPES_OF_PAPER = '/types';
-export const ROUTE_FIELDS_OF_STUDY = '/fields';
-export const ROUTE_PUBLISHERS = '/publishers';
-export const ROUTE_CITATIONS = '/citations';
-export const ROUTE_TOPICS = '/topics';
+export const ROUTE_HOME = '';
+export const ROUTE_LOGIN = 'login';
+export const ROUTE_REGISTER = 'register';
+export const ROUTE_ACCOUNT = 'account';
+export const ROUTE_PASSWORD = 'forgotpassword';
+export const ROUTE_PAPERS = 'papers';
+export const ROUTE_AUTHORS = 'authors';
+export const ROUTE_VENUES = 'venues';
+export const ROUTE_TYPES_OF_PAPER = 'types';
+export const ROUTE_FIELDS_OF_STUDY = 'fields';
+export const ROUTE_PUBLISHERS = 'publishers';
+export const ROUTE_CITATIONS = 'citations';
+export const ROUTE_TOPICS = 'topics';
 
 export const TYPES_OF_PAPER = [
   'article',
@@ -20,7 +20,7 @@ export const TYPES_OF_PAPER = [
   'proceedings',
   'phdthesis',
   'mastersthesis'
-];
+] as const;
 
 export const FIELDS_OF_STUDY = [
   'Art',
@@ -42,7 +42,7 @@ export const FIELDS_OF_STUDY = [
   'Political Science',
   'Psychology',
   'Sociology'
-];
+] as const;
 
 export const ACCESS_TYPE_OPEN = 'Open';
 export const ACCESS_TYPE_OTHER = 'Other';
@@ -59,4 +59,8 @@ export const NA = 'Others';
 export const metrics = [
   { label: '#Citations', value: 'inCitationsCount' },
   { label: '#Papers', value: 'papersCount' }
-];
+] as const;
+
+export const papers = 'papers' as const,
+  authors = 'authors' as const,
+  venues = 'venues' as const;
