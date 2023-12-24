@@ -19,30 +19,31 @@ const VisualizationsContainer: React.FC<VisualizationsContainerProps> = ({
 }) => {
   const chartRef = useRef<HTMLDivElement>(null);
   const { state: applicationState } = useContext(ApplicationContext);
+
+  //TODO: Get dimensions of the screen of first render, make this dynamic
+  const [dimensions, setDimensions] = useState({ height: 710, width: 920 });
   const { isFiltersCollaped } = applicationState;
-  const [dimensions, setDimensions] = useState({ height: 620, width: 920 });
 
-  useLayoutEffect(() => {
-    if (chartRef.current) {
-      setDimensions({
-        width: chartRef.current.clientWidth,
-        height: chartRef.current.clientHeight
-      });
+  // useLayoutEffect(() => {
+  //   if (chartRef.current) {
+  //     setDimensions({
+  //       width: chartRef.current.clientWidth,
+  //       height: chartRef.current.clientHeight,
+  //     });
 
-      console.log(
-        'chartRef.current.clientHeight',
-        chartRef.current.clientHeight
-      );
-    }
-  }, [isFiltersCollaped]);
+  //     console.log(
+  //       'chartRef.current.clientHeight',
+  //       chartRef.current.clientHeight
+  //     );
+  //   }
+  // }, [isFiltersCollaped]);
 
   return (
     <VisualizationContainer
       ref={chartRef}
       style={{
         height: `${dimensions.height}px`,
-        width: '99.5%',
-        position: 'relative'
+        width: '100%'
       }}
     >
       {children}
