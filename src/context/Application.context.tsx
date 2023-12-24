@@ -1,10 +1,11 @@
 import React, { ReactNode, createContext, useReducer } from 'react';
 
-import { DataSets, IAction } from '../constants/types';
+import { Dataset } from '../constants/dataset.types';
+import { IAction } from '../constants/types';
 
 interface IState {
   isFiltersCollaped: boolean;
-  dataSet: DataSets;
+  dataSet: Dataset;
 }
 const initialState: IState = {
   isFiltersCollaped: false,
@@ -47,10 +48,10 @@ export const SetFilterCollapsed =
 
 export const SetselectedDataSet =
   (dispatch: React.Dispatch<IAction> | undefined) =>
-  (params: { dataSet: DataSets }) => {
+  (params: { dataSet: Dataset }) => {
     if (dispatch)
       dispatch({
-        type: ACTION_TYPES.SET_IS_FILTERS_COLLAPSED,
+        type: ACTION_TYPES.SET_SELECTED_DATA_SET,
         payload: params.dataSet
       });
   };
