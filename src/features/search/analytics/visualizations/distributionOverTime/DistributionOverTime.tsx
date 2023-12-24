@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 import { Select } from 'antd';
 
-import BarChartReChart from '../../../../../components/visulaizations/charts/BarChart.reactchart';
-import LineChart from '../../../../../components/visulaizations/charts/LineChart.reactchart';
+import VerticalBarChart from '../../../../../components/visulaizations/charts/BarChart';
+import LineChart from '../../../../../components/visulaizations/charts/LineChart';
 import VisualizationsContainer from '../VisualizationsContainer';
 
 const VISUALIZATIONS_OPTIONS = [
@@ -14,15 +14,33 @@ const VISUALIZATIONS_OPTIONS = [
 const DistributionOverTime: React.FC = () => {
   const [currentVisualization, setCurrentVisualization] =
     useState('line-chart');
+
   const onSelectHandle = (value: string) => {
     setCurrentVisualization(value);
   };
 
   return (
-    <div>
-      asdasdask
-      <LineChart />
-    </div>
+    <VisualizationsContainer>
+      <div
+        style={{
+          textAlign: 'end',
+          marginBottom: '16px',
+          paddingRight: '20px'
+        }}
+      >
+        <Select
+          options={VISUALIZATIONS_OPTIONS}
+          onChange={onSelectHandle}
+          defaultActiveFirstOption
+          defaultValue={VISUALIZATIONS_OPTIONS[0].value}
+        />
+      </div>
+      {currentVisualization === 'line-chart' ? (
+        <LineChart />
+      ) : (
+        <VerticalBarChart />
+      )}
+    </VisualizationsContainer>
   );
 };
 
