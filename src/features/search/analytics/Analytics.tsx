@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import type { TabsProps } from 'antd';
+
+import { PAPERS } from '../../../constants/dataset.types';
+import { ApplicationContext } from '../../../context/Application.context';
 
 import { AnalyticsContainer, AnalyticsTabs } from './Analytics.styles';
 import DistributionOverTime from './visualizations/distributionOverTime/DistributionOverTime';
@@ -27,17 +30,28 @@ const visualizationsAll: TabsProps['items'] = [
 // const visualizationsSelected: TabsProps["items"] = [];
 
 export const Analytics: React.FC = () => {
+  const { state: applicationState } = useContext(ApplicationContext);
+
+  const [visualizationsDisplayed, setVisualizationsDisplayed] = useState<
+    TabsProps['items']
+  >([]);
+
+  useEffect(() => {
+    switch (applicationState.dataSet) {
+      case PAPERS:
+        return setVisualizationsDisplayed(visualizationsAll);
+      default:
+        return setVisualizationsDisplayed([]);
+    }
+  }, [applicationState.dataSet]);
+
   const onChange = (key: string) => {
     console.log(key);
   };
 
   return (
     <AnalyticsContainer>
-      <AnalyticsTabs
-        defaultActiveKey="line-chart"
-        items={visualizationsAll}
-        onChange={onChange}
-      />
+      <AnalyticsTabs items={visualizationsDisplayed} onChange={onChange} />
     </AnalyticsContainer>
   );
 };
