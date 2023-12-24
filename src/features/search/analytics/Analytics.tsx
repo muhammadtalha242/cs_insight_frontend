@@ -5,8 +5,6 @@ import type { TabsProps } from 'antd';
 import { AnalyticsContainer, AnalyticsTabs } from './Analytics.styles';
 import DistributionOverTime from './visualizations/distributionOverTime/DistributionOverTime';
 
-export type ColorMap = Record<string, string>;
-
 const visualizationsAll: TabsProps['items'] = [
   {
     key: 'line-chart',
