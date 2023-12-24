@@ -1,7 +1,8 @@
-import { AUTHORS, Dataset, PAPERS, VENUES } from '../dataset.types';
+import { ReactElement, ReactNode } from 'react';
 
-export enum visualizations {
-  DISTRIBUTIONS_OVERTIME = 'distribution_overtime'
+export enum visualization {
+  DISTRIBUTIONS_OVERTIME = 'distribution_overtime',
+  TOP_RESEARCH = 'top_research'
 }
 
 export enum chart {
@@ -12,8 +13,9 @@ export enum chart {
   BAR = 'bar'
 }
 
-export const VISUALIZATION_TITLE: Record<visualizations, string> = {
-  [visualizations.DISTRIBUTIONS_OVERTIME]: 'Distribution Over Time'
+export const VISUALIZATION_TITLE: Record<visualization, string> = {
+  [visualization.DISTRIBUTIONS_OVERTIME]: 'Distribution Over Time',
+  [visualization.TOP_RESEARCH]: 'Top Research'
 } as const;
 
 export const CHART_TITLE: Record<chart, string> = {
@@ -24,8 +26,10 @@ export const CHART_TITLE: Record<chart, string> = {
   [chart.MULTI_LINE]: 'Multi Line Chart'
 } as const;
 
-export const VISUALIZATION_BY_DATASET: Record<Dataset, visualizations[]> = {
-  [PAPERS]: [visualizations.DISTRIBUTIONS_OVERTIME],
-  [AUTHORS]: [visualizations.DISTRIBUTIONS_OVERTIME],
-  [VENUES]: [visualizations.DISTRIBUTIONS_OVERTIME]
-} as const;
+export type Tab = {
+  key: string;
+  label: string;
+  forceRender?: boolean;
+  destroyInactiveTabPane?: boolean;
+  children?: ReactNode | ReactElement;
+};
