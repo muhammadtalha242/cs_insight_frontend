@@ -2,32 +2,48 @@ import React, { useContext, useEffect, useState } from 'react';
 
 import type { TabsProps } from 'antd';
 
-import { PAPERS } from '../../../constants/dataset.types';
+import {
+  AUTHORS,
+  Dataset,
+  PAPERS,
+  VENUES
+} from '../../../constants/dataset.types';
+import {
+  Tab,
+  VISUALIZATION_TITLE,
+  visualization
+} from '../../../constants/visualizations/visualizations.types';
 import { ApplicationContext } from '../../../context/Application.context';
 
 import { AnalyticsContainer, AnalyticsTabs } from './Analytics.styles';
 import DistributionOverTime from './visualizations/distributionOverTime/DistributionOverTime';
+import TopResearch from './visualizations/topResearch/TopResearch';
 
-const visualizationsAll: TabsProps['items'] = [
-  {
-    key: 'line-chart',
-    label: 'Distribution of Papers',
+export const VISUALIZATION_TAB: Record<visualization, Tab> = {
+  [visualization.DISTRIBUTIONS_OVERTIME]: {
+    key: visualization.DISTRIBUTIONS_OVERTIME,
+    label: VISUALIZATION_TITLE.distribution_overtime,
     forceRender: true,
     destroyInactiveTabPane: true,
     children: <DistributionOverTime />
   },
-  {
-    key: '2',
-    label: 'Tab 2',
-    children: 'Content of Tab Pane 2'
-  },
-  {
-    key: '3',
-    label: 'Tab 3',
-    children: 'Content of Tab Pane 3'
+  [visualization.TOP_RESEARCH]: {
+    key: visualization.TOP_RESEARCH,
+    label: VISUALIZATION_TITLE.top_research,
+    forceRender: true,
+    destroyInactiveTabPane: true,
+    children: <TopResearch />
   }
-];
-// const visualizationsSelected: TabsProps["items"] = [];
+};
+
+export const VISUALIZATION_BY_DATASET: Record<Dataset, Tab[]> = {
+  [PAPERS]: [
+    VISUALIZATION_TAB[visualization.DISTRIBUTIONS_OVERTIME],
+    VISUALIZATION_TAB[visualization.TOP_RESEARCH]
+  ],
+  [VENUES]: [VISUALIZATION_TAB[visualization.DISTRIBUTIONS_OVERTIME]],
+  [AUTHORS]: [VISUALIZATION_TAB[visualization.DISTRIBUTIONS_OVERTIME]]
+};
 
 export const Analytics: React.FC = () => {
   const { state: applicationState } = useContext(ApplicationContext);
@@ -37,12 +53,9 @@ export const Analytics: React.FC = () => {
   >([]);
 
   useEffect(() => {
-    switch (applicationState.dataSet) {
-      case PAPERS:
-        return setVisualizationsDisplayed(visualizationsAll);
-      default:
-        return setVisualizationsDisplayed([]);
-    }
+    setVisualizationsDisplayed(
+      VISUALIZATION_BY_DATASET[applicationState.dataSet]
+    );
   }, [applicationState.dataSet]);
 
   const onChange = (key: string) => {
