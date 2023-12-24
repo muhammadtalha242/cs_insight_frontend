@@ -1,7 +1,8 @@
 import React, { ReactNode, createContext, useReducer } from 'react';
 
 import { ACCESS_TYPE_OPEN, metrics } from '../constants/consts';
-import { DataSets, Filter, IAction } from '../constants/types';
+import { Dataset } from '../constants/dataset.types';
+import { Filter, IAction } from '../constants/types';
 
 export const initialState: IState = {
   dataSet: 'papers',
@@ -22,7 +23,7 @@ export const initialState: IState = {
 };
 
 export interface IState {
-  dataSet: DataSets;
+  dataSet: Dataset;
   query: string;
   filters: Filter;
 }
@@ -73,7 +74,7 @@ const queryReducer = (state: IState, action: IAction): IState => {
 
 export const setQuery =
   (dispatch: React.Dispatch<IAction> | undefined) =>
-  (params: { dataSet: DataSets; query: string }) => {
+  (params: { dataSet: Dataset; query: string }) => {
     if (dispatch)
       dispatch({ type: ACTION_TYPES.SET_QUERY, payload: { ...params } });
   };
