@@ -1,16 +1,19 @@
 import React, { ReactNode, createContext, useReducer } from 'react';
 
-import { IAction } from '../types/types';
+import { DataSets, IAction } from '../constants/types';
 
 interface IState {
   isFiltersCollaped: boolean;
+  dataSet: DataSets;
 }
 const initialState: IState = {
-  isFiltersCollaped: false
+  isFiltersCollaped: false,
+  dataSet: 'papers'
 };
 
 const ACTION_TYPES = {
-  SET_IS_FILTERS_COLLAPSED: 'SET_IS_FILTERS_COLLAPSED'
+  SET_IS_FILTERS_COLLAPSED: 'SET_IS_FILTERS_COLLAPSED',
+  SET_SELECTED_DATA_SET: 'SET_SELECTED_DATA_SET'
 };
 
 const applicationReducer = (state: IState, action: IAction): IState => {
@@ -19,6 +22,11 @@ const applicationReducer = (state: IState, action: IAction): IState => {
       return {
         ...state,
         isFiltersCollaped: action.payload
+      };
+    case ACTION_TYPES.SET_SELECTED_DATA_SET:
+      return {
+        ...state,
+        dataSet: action.payload
       };
 
     default: {
@@ -34,6 +42,16 @@ export const SetFilterCollapsed =
       dispatch({
         type: ACTION_TYPES.SET_IS_FILTERS_COLLAPSED,
         payload: params.isFiltersCollaped
+      });
+  };
+
+export const SetselectedDataSet =
+  (dispatch: React.Dispatch<IAction> | undefined) =>
+  (params: { dataSet: DataSets }) => {
+    if (dispatch)
+      dispatch({
+        type: ACTION_TYPES.SET_IS_FILTERS_COLLAPSED,
+        payload: params.dataSet
       });
   };
 
