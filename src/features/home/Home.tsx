@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import CombinedInput from '../../components/CombinedInput';
+import { DataSets } from '../../constants/types';
 import { QueryContext, setQuery } from '../../context/Query.context';
-import { DataSets } from '../../types/types';
 
 const { Content } = Layout;
 
