@@ -11,7 +11,7 @@ import Header from '../../components/Header';
 import {
   ApplicationContext,
   SetFilterCollapsed,
-  SetselectedDataSet
+  setSelectedDataSet
 } from '../../context/Application.context';
 import {
   QueryContext,
@@ -57,7 +57,7 @@ export const Search: React.FC = () => {
 
   const onSubmit = (updatedValues: StateProps) => {
     setQuery(queryDispatch)(updatedValues);
-    SetselectedDataSet(applicationDispatch)({ dataSet: updatedValues.dataSet });
+    setSelectedDataSet(applicationDispatch)({ dataSet: updatedValues.dataSet });
     console.log('updatedValues.dataSet', updatedValues.dataSet);
     navigate(`/search/${updatedValues.dataSet}&query=${updatedValues.query}`);
   };
