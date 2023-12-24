@@ -1,7 +1,7 @@
 import React, { ReactNode, createContext, useReducer } from 'react';
 
 import { ACCESS_TYPE_OPEN, metrics } from '../constants/consts';
-import { DataSets, Filter, IAction } from '../types/types';
+import { DataSets, Filter, IAction } from '../constants/types';
 
 export const initialState: IState = {
   dataSet: 'papers',
