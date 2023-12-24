@@ -39,13 +39,7 @@ const VisualizationsContainer: React.FC<VisualizationsContainerProps> = ({
   // }, [isFiltersCollaped]);
 
   return (
-    <VisualizationContainer
-      ref={chartRef}
-      style={{
-        height: `${dimensions.height}px`,
-        width: '100%'
-      }}
-    >
+    <VisualizationContainer ref={chartRef} height={dimensions.height}>
       {children}
     </VisualizationContainer>
   );
