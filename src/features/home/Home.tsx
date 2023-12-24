@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import CombinedInput from '../../components/CombinedInput';
-import { DataSets } from '../../constants/types';
+import { Dataset } from '../../constants/dataset.types';
 import { QueryContext, setQuery } from '../../context/Query.context';
 
 const { Content } = Layout;
@@ -23,7 +23,7 @@ const ContentStyledContainer = styled(Content)`
 
 //TODO: Create constants: Papers, Authors and the string mapping around the application
 export type StateProps = {
-  dataSet: DataSets;
+  dataSet: Dataset;
   query: string;
 };
 
@@ -47,7 +47,7 @@ export const Home: React.FC = () => {
     [dispatch]
   );
 
-  const handleChangeView = useCallback((dataSet: DataSets) => {
+  const handleChangeView = useCallback((dataSet: Dataset) => {
     onSubmit({ dataSet, query: 'all' });
   }, []);
 
