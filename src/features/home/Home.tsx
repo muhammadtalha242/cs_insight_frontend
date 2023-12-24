@@ -5,8 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import CombinedInput from '../../components/CombinedInput';
-import { Dataset } from '../../constants/dataset.types';
+import { AUTHORS, Dataset, PAPERS } from '../../constants/dataset.types';
 import { QueryContext, setQuery } from '../../context/Query.context';
+import {
+  ApplicationContext,
+  setSelectedDataSet
+} from '../../context/Application.context';
 
 const { Content } = Layout;
 
@@ -21,7 +25,6 @@ const ContentStyledContainer = styled(Content)`
   width: 100%;
 `;
 
-//TODO: Create constants: Papers, Authors and the string mapping around the application
 export type StateProps = {
   dataSet: Dataset;
   query: string;
@@ -29,6 +32,8 @@ export type StateProps = {
 
 export const Home: React.FC = () => {
   const { state: queryState, dispatch } = useContext(QueryContext);
+  const { dispatch: applicationDispatch } = useContext(ApplicationContext);
+
   const [values, setValues] = useState<StateProps>({
     dataSet: queryState.dataSet,
     query: queryState.query
@@ -39,8 +44,11 @@ export const Home: React.FC = () => {
   const onSubmit = useCallback(
     (updatedValues: StateProps) => {
       setValues(prev => ({ ...prev, ...updatedValues }));
+      setSelectedDataSet(applicationDispatch)({
+        dataSet: updatedValues.dataSet
+      });
+
       setQuery(dispatch)(updatedValues);
-      // console.log("{ ...prev, ...updatedValues }", { ...updatedValues });
 
       navigate(`/search/${updatedValues.dataSet}?query=${updatedValues.query}`);
     },
@@ -59,14 +67,14 @@ export const Home: React.FC = () => {
         <Button
           id="papers"
           name="papers"
-          onClick={() => handleChangeView('papers')}
+          onClick={() => handleChangeView(PAPERS)}
         >
           Papers
         </Button>
         <Button
           id="authors"
           name="authors"
-          onClick={() => handleChangeView('authors')}
+          onClick={() => handleChangeView(AUTHORS)}
         >
           Authors
         </Button>
