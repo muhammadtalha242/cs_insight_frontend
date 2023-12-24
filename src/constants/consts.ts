@@ -56,11 +56,8 @@ export const PAGE_SIZE = 100;
 export const GRID_DECIMAL_PLACES = 2;
 
 export const NA = 'Others';
+
 export const metrics = [
   { label: '#Citations', value: 'inCitationsCount' },
   { label: '#Papers', value: 'papersCount' }
 ] as const;
-
-export const papers = 'papers' as const,
-  authors = 'authors' as const,
-  venues = 'venues' as const;
