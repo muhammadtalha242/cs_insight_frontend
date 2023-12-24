@@ -1,10 +1,4 @@
-import React, {
-  ReactNode,
-  useContext,
-  useLayoutEffect,
-  useRef,
-  useState
-} from 'react';
+import React, { ReactNode, useContext, useRef, useState } from 'react';
 
 import { ApplicationContext } from '../../../../context/Application.context';
 
