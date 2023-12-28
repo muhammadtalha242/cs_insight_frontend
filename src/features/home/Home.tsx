@@ -6,11 +6,11 @@ import styled from 'styled-components';
 
 import CombinedInput from '../../components/CombinedInput';
 import { AUTHORS, Dataset, PAPERS } from '../../constants/dataset.types';
-import { QueryContext, setQuery } from '../../context/Query.context';
 import {
   ApplicationContext,
   setSelectedDataSet
 } from '../../context/Application.context';
+import { QueryContext, setQuery } from '../../context/Query.context';
 
 const { Content } = Layout;
 
@@ -44,6 +44,7 @@ export const Home: React.FC = () => {
   const onSubmit = useCallback(
     (updatedValues: StateProps) => {
       setValues(prev => ({ ...prev, ...updatedValues }));
+
       setSelectedDataSet(applicationDispatch)({
         dataSet: updatedValues.dataSet
       });
@@ -69,17 +70,17 @@ export const Home: React.FC = () => {
           name="papers"
           onClick={() => handleChangeView(PAPERS)}
         >
-          Papers
+          All Papers
         </Button>
         <Button
           id="authors"
           name="authors"
           onClick={() => handleChangeView(AUTHORS)}
         >
-          Authors
+          All Authors
         </Button>
-        <Button disabled>Venue</Button>
-        <Button disabled>Topics</Button>
+        <Button disabled>All Venue</Button>
+        <Button disabled>All Topics</Button>
       </Space>
     </ContentStyledContainer>
   );
