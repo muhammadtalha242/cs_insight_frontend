@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Button, Input, Select, Space } from 'antd';
 import styled from 'styled-components';
 
+import { Dataset } from '../constants/dataset.types';
 import { StateProps } from '../features/home/Home';
 
 const options = [
@@ -17,7 +18,7 @@ const options = [
 ];
 
 type CombinedInputProps = {
-  initialValues: { query: string; dataSet: string };
+  initialValues: { query: string; dataSet: Dataset };
   onSubmit: (values: StateProps) => void;
 };
 
