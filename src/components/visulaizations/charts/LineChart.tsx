@@ -9,13 +9,15 @@ import {
   Label
 } from 'recharts';
 
-import papersCountPerYear from '../../../../public/paper-count-per-year.json';
+type LineChartProps = {
+  data: { count: number; year: number }[];
+};
 
-export default function LineChartReChart() {
+const SingleLineChart: React.FC<LineChartProps> = ({ data }) => {
   return (
     <ResponsiveContainer width="100%" height="100%">
       <LineChart
-        data={papersCountPerYear}
+        data={data}
         margin={{
           top: 5,
           right: 30,
@@ -41,9 +43,12 @@ export default function LineChartReChart() {
           type="natural"
           dataKey="count"
           stroke="#8884d8"
+          dot={false}
           activeDot={{ r: 8 }}
         />
       </LineChart>
     </ResponsiveContainer>
   );
-}
+};
+
+export default SingleLineChart;
