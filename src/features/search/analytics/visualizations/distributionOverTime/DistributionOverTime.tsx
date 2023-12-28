@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 
 import { Select } from 'antd';
 
@@ -8,6 +8,7 @@ import {
   CHART_TITLE,
   chart
 } from '../../../../../constants/visualizations/visualizations.types';
+import visualizationsService from '../../../../../services/visualizations';
 import VisualizationsContainer from '../VisualizationsContainer';
 
 const VISUALIZATIONS_OPTIONS = [
@@ -19,10 +20,25 @@ const DistributionOverTime: React.FC = () => {
   const [currentVisualization, setCurrentVisualization] = useState(
     chart.LINE as string
   );
+  const [data, setData] = useState<{ count: number; year: number }[]>([]);
+
+  useLayoutEffect(() => {
+    const getData = async () => {
+      const graphData: { count: number; year: number }[] =
+        await visualizationsService.getPapersCount();
+
+      //TODO: useMemo here
+      //TODO: make it more generic
+      const dt = () =>
+        graphData.map(v => ({ count: Number(v.count), year: v.year }));
+
+      setData(dt);
+    };
+
+    getData();
+  }, []);
 
   const onSelectHandle = (value: string) => {
-    console.log('value', value);
-
     setCurrentVisualization(value);
   };
 
@@ -43,10 +59,12 @@ const DistributionOverTime: React.FC = () => {
         />
       </div>
       {currentVisualization === chart.LINE ? (
-        <LineChart />
-      ) : (
-        <VerticalBarChart />
-      )}
+        data.length !== 0 ? (
+          <LineChart data={data} />
+        ) : null
+      ) : data.length !== 0 ? (
+        <VerticalBarChart data={data} />
+      ) : null}
     </VisualizationsContainer>
   );
 };
