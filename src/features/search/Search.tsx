@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useCallback, useContext } from 'react';
 
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 
@@ -8,6 +8,12 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
 import CombinedInput from '../../components/CombinedInput';
 import Header from '../../components/Header';
+import {
+  AUTHORS,
+  Dataset,
+  PAPERS,
+  VENUES
+} from '../../constants/dataset.types';
 import {
   ApplicationContext,
   SetFilterCollapsed,
@@ -72,6 +78,10 @@ export const Search: React.FC = () => {
     navigate(`/`);
   };
 
+  const handleChangeView = useCallback((dataSet: Dataset) => {
+    onSubmit({ dataSet, query: 'all' });
+  }, []);
+
   const handleFiltersCollapse = () => {
     SetFilterCollapsed(applicationDispatch)({
       isFiltersCollaped: !isFiltersCollaped
@@ -81,16 +91,42 @@ export const Search: React.FC = () => {
   return (
     <MainContentContainer>
       <Header>
-        <Button style={{ border: 'none' }} onClick={sendHome}>
-          Logo
-        </Button>
-        <CombinedInput
+        <div
+          style={{
+            width: '50%',
+            display: 'flex',
+            justifyContent: 'space-around'
+          }}
+        >
+          <Button style={{ border: 'none' }} onClick={sendHome}>
+            Logo
+          </Button>
+          <Button
+            style={{ border: 'none' }}
+            onClick={() => handleChangeView(PAPERS)}
+          >
+            Papers
+          </Button>
+          <Button
+            style={{ border: 'none' }}
+            onClick={() => handleChangeView(AUTHORS)}
+          >
+            Authors
+          </Button>
+          <Button
+            style={{ border: 'none' }}
+            onClick={() => handleChangeView(VENUES)}
+          >
+            Venues
+          </Button>
+        </div>
+        {/* <CombinedInput
           initialValues={{
             dataSet: queryState.dataSet,
             query: queryState.query
           }}
           onSubmit={onSubmit}
-        />
+        /> */}
         <Button
           type="text"
           icon={
@@ -106,9 +142,7 @@ export const Search: React.FC = () => {
             width: 64,
             height: 64
           }}
-        >
-          Filters
-        </Button>
+        ></Button>
       </Header>
       <SearchLayoutContainer>
         <VisualizationsTabContainer
