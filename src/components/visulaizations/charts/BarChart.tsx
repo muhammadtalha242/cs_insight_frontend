@@ -9,13 +9,15 @@ import {
   Bar
 } from 'recharts';
 
-import papersCountPerYear from '../../../../public/paper-count-per-year.json';
+type VerticalBarChartProps = {
+  data: { count: number; year: number }[];
+};
 
-export default function VerticalBarChart() {
+const VerticalBarChart: React.FC<VerticalBarChartProps> = ({ data }) => {
   return (
     <ResponsiveContainer width="100%" height="100%">
       <BarChart
-        data={papersCountPerYear}
+        data={data}
         margin={{
           top: 5,
           right: 30,
@@ -41,4 +43,6 @@ export default function VerticalBarChart() {
       </BarChart>
     </ResponsiveContainer>
   );
-}
+};
+
+export default VerticalBarChart;
