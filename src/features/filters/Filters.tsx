@@ -1,48 +1,43 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import {
   DeleteTwoTone,
   CloseCircleTwoTone,
   CheckCircleTwoTone
 } from '@ant-design/icons';
+import TextField from '@mui/material/TextField';
 
 import { Button, InputNumber, Select, Space } from 'antd';
 
 import { Collapsible } from '../../components/Collapsible';
+import SelectCustom from '../../components/Select';
 import Sider, { SiderProps } from '../../components/Sider';
 import {
   ACCESS_TYPE,
+  ACCESS_TYPE_OPEN,
   FIELDS_OF_STUDY,
-  TYPES_OF_PAPER
+  TYPES_OF_PAPER,
+  metrics
 } from '../../constants/consts';
-import { useFilter } from '../../context/Filter.context';
+import { Filter as filterTypes } from '../../constants/types';
 
 import { FilterContentContainer } from './Filters.styles';
 
 export const Filter: React.FC<SiderProps> = ({ collapsed, children }) => {
-  const filter = useFilter();
-  const filterRef = useRef(filter.filter);
+  const [filter, setFilter] = useState<filterTypes>({
+    yearStart: '1960',
+    yearEnd: '',
+    citationsMin: '',
+    citationsMax: '',
+    authors: [],
+    venues: [],
+    accessType: ACCESS_TYPE_OPEN,
+    typesOfPaper: [],
+    fieldsOfStudy: [],
+    publishers: [],
+    metric: metrics[0].value
+  });
 
-  // debounce in FilterRange uses an old reference otherwise and deletes filters
-  useEffect(() => {
-    filterRef.current = filter.filter;
-  }, [filter.filter]);
-
-  const clearFilters = useCallback(() => {
-    filter.setFilter({
-      yearStart: '',
-      yearEnd: '',
-      citationsMin: '',
-      citationsMax: '',
-      authors: [],
-      venues: [],
-      accessType: null,
-      typesOfPaper: [],
-      fieldsOfStudy: [],
-      publishers: [],
-      metric: filter.filter.metric
-    });
-  }, []);
   const onChange = (value: string) => {
     console.log(`selected ${value}`);
   };
@@ -55,6 +50,11 @@ export const Filter: React.FC<SiderProps> = ({ collapsed, children }) => {
     value: type,
     label: type.toLocaleUpperCase()
   }));
+
+  const authors = TYPES_OF_PAPER.map(type => ({
+    value: type,
+    key: type.toLocaleUpperCase()
+  }));
   const fieldsOfStudy = FIELDS_OF_STUDY.map(type => ({
     value: type,
     label: type.toLocaleUpperCase()
@@ -63,6 +63,10 @@ export const Filter: React.FC<SiderProps> = ({ collapsed, children }) => {
     value: type,
     label: type.toLocaleUpperCase()
   }));
+
+  const handleChange = (event: React.ChangeEvent) => {
+    setFilter(prev => ({ ...prev, [event.target.name]: event.target.value }));
+  };
 
   // Filter `option.label` match the user type `input`
   const filterOption = (
@@ -73,29 +77,48 @@ export const Filter: React.FC<SiderProps> = ({ collapsed, children }) => {
   return (
     <Sider collapsed={collapsed}>
       <FilterContentContainer>
-        <Button type="default" icon={<DeleteTwoTone />} onClick={clearFilters}>
+        <Button type="default" icon={<DeleteTwoTone />}>
           Clear Filters
         </Button>
         <Collapsible title="Year of Publications">
           <Space size={'large'}>
-            <InputNumber placeholder="From" size="large" style={{}} />
-            <InputNumber placeholder="To" size="large" />
+            <TextField
+              id="yearStart"
+              label="From"
+              placeholder="From"
+              name="yearStart"
+              type="number"
+              InputLabelProps={{
+                shrink: true
+              }}
+              onChange={handleChange}
+            />
+            <TextField
+              id="yearEnd"
+              label="To"
+              placeholder="To"
+              name="yearEnd"
+              type="number"
+              InputLabelProps={{
+                shrink: true
+              }}
+              onChange={handleChange}
+            />
+            {/* <InputNumber
+              placeholder="To"
+              name="yearEnd"
+              value={filter.yearEnd}
+              size="large"
+            /> */}
           </Space>
         </Collapsible>
         <Collapsible title="Authors">
-          <Select
-            showSearch
-            placeholder="Search"
-            optionFilterProp="children"
-            onChange={onChange}
-            onSearch={onSearch}
-            filterOption={filterOption}
-            options={[]}
-            style={{ width: '100%' }}
-          />
+          <SelectCustom inputLabel="Authors" multiple options={authors} />
         </Collapsible>
 
         <Collapsible title="Venues">
+          <SelectCustom inputLabel="Authors" multiple options={authors} />
+
           <Select
             showSearch
             placeholder="Search"
@@ -167,14 +190,14 @@ export const Filter: React.FC<SiderProps> = ({ collapsed, children }) => {
           <Button
             type="default"
             icon={<CheckCircleTwoTone />}
-            onClick={() => filter.setFilter({ ...filter.filter })}
+            // onClick={() => filter.setFilter({ ...filter.filter })}
           >
             Apply
           </Button>
           <Button
             type="default"
             icon={<CloseCircleTwoTone />}
-            onClick={clearFilters}
+            // onClick={}
           >
             Cancle
           </Button>
