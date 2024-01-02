@@ -1,13 +1,8 @@
 import * as React from 'react';
 
-import { Autocomplete, TextField } from '@mui/material';
-import Box from '@mui/material/Box';
-import Chip from '@mui/material/Chip';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import SelectMUI, { SelectChangeEvent } from '@mui/material/Select';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import { Autocomplete, Checkbox, TextField } from '@mui/material';
 import { Theme, useTheme } from '@mui/material/styles';
 
 const ITEM_HEIGHT = 48;
@@ -40,7 +35,8 @@ interface ISelectProps {
   multiple?: boolean;
   inputLabel: string;
 }
-
+const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+const checkedIcon = <CheckBoxIcon fontSize="small" />;
 const Select: React.FC<ISelectProps> = ({ options, multiple, inputLabel }) => {
   const theme = useTheme();
   const [selectedOption, setselectedOption] = React.useState<string[]>([]);
@@ -68,7 +64,18 @@ const Select: React.FC<ISelectProps> = ({ options, multiple, inputLabel }) => {
         options={options}
         getOptionLabel={option => option.value}
         filterSelectedOptions
-        onChange={handleChange}
+        renderOption={(props, option, { selected }) => (
+          <li {...props}>
+            <Checkbox
+              icon={icon}
+              checkedIcon={checkedIcon}
+              style={{ marginRight: 8 }}
+              checked={selected}
+            />
+            {option.value}
+          </li>
+        )}
+        // onChange={handleChange}
         renderInput={params => <TextField {...params} label={inputLabel} />}
       />
     </>
