@@ -10,6 +10,7 @@ import TextField from '@mui/material/TextField';
 import { Button, InputNumber, Select, Space } from 'antd';
 
 import { Collapsible } from '../../components/Collapsible';
+import Input from '../../components/Input';
 import SelectCustom from '../../components/Select';
 import Sider, { SiderProps } from '../../components/Sider';
 import {
@@ -82,6 +83,7 @@ export const Filter: React.FC<SiderProps> = ({ collapsed, children }) => {
         </Button>
         <Collapsible title="Year of Publications">
           <Space size={'large'}>
+            <Input />
             <TextField
               id="yearStart"
               label="From"
