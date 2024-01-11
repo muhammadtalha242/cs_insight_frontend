@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { Spacing } from '../../themes';
 
 export const FilterContentContainer = styled.div`
-  padding: ${Spacing.large} 0;
   height: 100%;
   display: flex;
   justify-content: space-between;
