@@ -1,11 +1,13 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8080' as const;
+import { API_BASE_URL } from '../constants/consts';
+import { getUrlSearchParams } from '../util/urlSearchParams';
 
-const getPapersCount = async () => {
-  const res = await axios.get(
-    `${API_BASE_URL}/papers/years?yearStart=1966&metric=inCitationsCounts`
-  );
+const getPapersCount = async ({ queryKey }: any) => {
+  const [, filters] = queryKey;
+  const queryParams = getUrlSearchParams(filters);
+
+  const res = await axios.get(`${API_BASE_URL}/papers/years?${queryParams}`);
 
   return res.data;
 };
