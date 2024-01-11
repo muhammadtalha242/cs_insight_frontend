@@ -1,16 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useContext, useState } from 'react';
 
-import {
-  DeleteTwoTone,
-  CloseCircleTwoTone,
-  CheckCircleTwoTone
-} from '@ant-design/icons';
-import TextField from '@mui/material/TextField';
-
-import { Button, InputNumber, Select, Space } from 'antd';
+import { CheckCircleTwoTone } from '@mui/icons-material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { Box, Button, TextField } from '@mui/material';
 
 import { Collapsible } from '../../components/Collapsible';
-import Input from '../../components/Input';
 import SelectCustom from '../../components/Select';
 import Sider, { SiderProps } from '../../components/Sider';
 import {
@@ -21,35 +15,22 @@ import {
   metrics
 } from '../../constants/consts';
 import { Filter as filterTypes } from '../../constants/types';
+import {
+  QueryContext,
+  resetFilters,
+  setFilters as setFiltersContext
+} from '../../context/Query.context';
 
 import { FilterContentContainer } from './Filters.styles';
 
 export const Filter: React.FC<SiderProps> = ({ collapsed, children }) => {
-  const [filter, setFilter] = useState<filterTypes>({
-    yearStart: '1960',
-    yearEnd: '',
-    citationsMin: '',
-    citationsMax: '',
-    authors: [],
-    venues: [],
-    accessType: ACCESS_TYPE_OPEN,
-    typesOfPaper: [],
-    fieldsOfStudy: [],
-    publishers: [],
-    metric: metrics[0].value
-  });
-
-  const onChange = (value: string) => {
-    console.log(`selected ${value}`);
-  };
-
-  const onSearch = (value: string) => {
-    console.log('search:', value);
-  };
+  const { dispatch: queryDispatch, state: queryState } =
+    useContext(QueryContext);
+  const [filter, setFilter] = useState<filterTypes>({ ...queryState.filters });
 
   const typesOfPapers = TYPES_OF_PAPER.map(type => ({
     value: type,
-    label: type.toLocaleUpperCase()
+    key: type.toLocaleUpperCase()
   }));
 
   const authors = TYPES_OF_PAPER.map(type => ({
@@ -58,15 +39,37 @@ export const Filter: React.FC<SiderProps> = ({ collapsed, children }) => {
   }));
   const fieldsOfStudy = FIELDS_OF_STUDY.map(type => ({
     value: type,
-    label: type.toLocaleUpperCase()
+    key: type.toLocaleUpperCase()
   }));
   const accessTypes = ACCESS_TYPE.map(type => ({
     value: type,
-    label: type.toLocaleUpperCase()
+    key: type.toLocaleUpperCase()
   }));
 
-  const handleChange = (event: React.ChangeEvent) => {
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFilter(prev => ({ ...prev, [event.target.name]: event.target.value }));
+  };
+
+  const handleSelectChange =
+    (
+      name:
+        | 'authors'
+        | 'venues'
+        | 'typesOfPaper'
+        | 'fieldsOfStudy'
+        | 'publishers'
+        | 'metric'
+        | 'accessType'
+    ) =>
+    (selectedOptions: string[] | string | null) => {
+      setFilter(prev => ({ ...prev, [name]: selectedOptions }));
+    };
+
+  const rest = () => {
+    resetFilters(queryDispatch)();
+    setFilter(queryState.filters);
   };
 
   // Filter `option.label` match the user type `input`
@@ -78,132 +81,159 @@ export const Filter: React.FC<SiderProps> = ({ collapsed, children }) => {
   return (
     <Sider collapsed={collapsed}>
       <FilterContentContainer>
-        <Button type="default" icon={<DeleteTwoTone />}>
+        <Button variant="contained" startIcon={<DeleteIcon />} onClick={rest}>
           Clear Filters
         </Button>
         <Collapsible title="Year of Publications">
-          <Space size={'large'}>
-            <Input />
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+          >
             <TextField
               id="yearStart"
               label="From"
               placeholder="From"
               name="yearStart"
               type="number"
+              inputProps={{
+                min: '1960'
+              }}
+              value={filter.yearStart}
               InputLabelProps={{
                 shrink: true
               }}
               onChange={handleChange}
             />
+            <Box width={20} />
             <TextField
               id="yearEnd"
               label="To"
               placeholder="To"
               name="yearEnd"
+              value={filter.yearEnd}
               type="number"
+              inputProps={{
+                min: '0'
+              }}
               InputLabelProps={{
                 shrink: true
               }}
               onChange={handleChange}
             />
-            {/* <InputNumber
-              placeholder="To"
-              name="yearEnd"
-              value={filter.yearEnd}
-              size="large"
-            /> */}
-          </Space>
+          </Box>
         </Collapsible>
         <Collapsible title="Authors">
-          <SelectCustom inputLabel="Authors" multiple options={authors} />
+          <SelectCustom
+            route="authors"
+            inputLabel="Authors"
+            multiple
+            options={authors}
+            onChange={handleSelectChange('authors')}
+          />
         </Collapsible>
 
         <Collapsible title="Venues">
-          <SelectCustom inputLabel="Authors" multiple options={authors} />
-
-          <Select
-            showSearch
-            placeholder="Search"
-            optionFilterProp="children"
-            onChange={onChange}
-            onSearch={onSearch}
-            filterOption={filterOption}
-            options={[]}
-            style={{ width: '100%' }}
+          <SelectCustom
+            route="authors"
+            inputLabel="Venues"
+            multiple
+            options={authors}
+            onChange={handleSelectChange('venues')}
           />
         </Collapsible>
 
         <Collapsible title="Types of papers">
-          <Select
-            showSearch
-            placeholder="Select"
-            optionFilterProp="children"
-            onChange={onChange}
-            onSearch={onSearch}
-            filterOption={filterOption}
+          <SelectCustom
+            route="authors"
+            inputLabel="Types of papers"
+            multiple
+            onChange={handleSelectChange('typesOfPaper')}
             options={typesOfPapers}
-            style={{ width: '100%' }}
           />
         </Collapsible>
         <Collapsible title="Field of Study">
-          <Select
-            showSearch
-            placeholder="Select"
-            optionFilterProp="children"
-            onChange={onChange}
-            onSearch={onSearch}
-            filterOption={filterOption}
+          <SelectCustom
+            route="authors"
+            inputLabel="Field of Study"
+            multiple
+            onChange={handleSelectChange('fieldsOfStudy')}
             options={fieldsOfStudy}
-            style={{ width: '100%' }}
           />
         </Collapsible>
         <Collapsible title="Publishers">
-          <Select
-            showSearch
-            placeholder="Search"
-            optionFilterProp="children"
-            onChange={onChange}
-            onSearch={onSearch}
-            filterOption={filterOption}
-            options={[]}
-            style={{ width: '100%' }}
+          <SelectCustom
+            route="authors"
+            inputLabel="Publishers"
+            multiple
+            onChange={handleSelectChange('publishers')}
+            options={fieldsOfStudy}
           />
         </Collapsible>
         <Collapsible title="Access Type">
-          <Select
-            showSearch
-            placeholder="Search"
-            optionFilterProp="children"
-            onChange={onChange}
-            onSearch={onSearch}
-            filterOption={filterOption}
+          <SelectCustom
+            route="authors"
+            inputLabel="Access Type"
+            multiple
+            onChange={handleSelectChange('accessType')}
             options={accessTypes}
-            style={{ width: '100%' }}
           />
         </Collapsible>
 
         <Collapsible title="Citations">
-          <Space size={'large'}>
-            <InputNumber placeholder="Min" size="large" style={{}} />
-            <InputNumber placeholder="Max" size="large" />
-          </Space>
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <TextField
+              id="Min"
+              label="Min"
+              placeholder="Min"
+              name="citationsMin"
+              type="number"
+              inputProps={{
+                min: '0'
+              }}
+              InputLabelProps={{
+                shrink: true
+              }}
+              onChange={handleChange}
+            />
+            <Box width={20} />
+
+            <TextField
+              id="Max"
+              label="Max"
+              placeholder="Max"
+              name="citationsMax"
+              type="number"
+              inputProps={{
+                min: '0'
+              }}
+              InputLabelProps={{
+                shrink: true
+              }}
+              onChange={handleChange}
+            />
+          </Box>
         </Collapsible>
-        <Space size={'large'}>
+        <Box display="flex" justifyContent="space-around">
           <Button
-            type="default"
-            icon={<CheckCircleTwoTone />}
-            // onClick={() => filter.setFilter({ ...filter.filter })}
+            variant="contained"
+            startIcon={<CheckCircleTwoTone />}
+            onClick={() => setFiltersContext(queryDispatch)(filter)}
           >
             Apply
           </Button>
           <Button
-            type="default"
-            icon={<CloseCircleTwoTone />}
-            // onClick={}
+            variant="contained"
+            startIcon={<CheckCircleTwoTone />}
+            onClick={rest}
           >
             Cancle
           </Button>
-        </Space>
+        </Box>
         {children}
       </FilterContentContainer>
     </Sider>
