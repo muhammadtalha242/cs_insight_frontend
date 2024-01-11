@@ -2,28 +2,17 @@ import * as React from 'react';
 
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import { Autocomplete, Checkbox, TextField } from '@mui/material';
-import { Theme, useTheme } from '@mui/material/styles';
+import {
+  Autocomplete,
+  Checkbox,
+  TextField,
+  CircularProgress
+} from '@mui/material';
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250
-    }
-  }
-};
+import { useQuery } from 'react-query';
 
-function getStyles(name: string, personName: readonly string[], theme: Theme) {
-  return {
-    fontWeight:
-      personName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium
-  };
-}
+import { AUTOCOMPLETE_ROUTES } from '../constants/consts';
+import { autocomplete } from '../services/autocomplete';
 
 interface IOption {
   key: string;
@@ -31,54 +20,98 @@ interface IOption {
 }
 
 interface ISelectProps {
+  route: AUTOCOMPLETE_ROUTES;
   options: IOption[];
   multiple?: boolean;
   inputLabel: string;
+  onChange?: (selectedOptions: string[] | string | null) => void; // Updated type to match the Autocomplete's expectation
 }
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
-const Select: React.FC<ISelectProps> = ({ options, multiple, inputLabel }) => {
-  const theme = useTheme();
-  const [selectedOption, setselectedOption] = React.useState<string[]>([]);
+const Select: React.FC<ISelectProps> = ({
+  options,
+  multiple,
+  inputLabel,
+  onChange
+}) => {
+  const [selectedOption, setSelectedOption] = React.useState<string[]>([]);
+  const [inputValue, setInputValue] = React.useState('');
+  const { data: authors, isFetching } = useQuery(
+    ['authors', inputValue],
+    () => autocomplete({ route: 'authors', inputValue }),
+    {
+      enabled: inputValue.length > 1
+    }
+  );
 
   const handleChange = (
     event: React.SyntheticEvent,
-    value: IOption[],
-    reason: string,
-    details?: string
+    value: IOption[] | IOption | null,
+    reason: string
   ) => {
-    console.log('value', value);
+    let selectedValues: string[] | string | null = null;
 
-    // setselectedOption(
-    //   // On autofill we get a stringified value.
-    // //   typeof value === 'string' ? value.split(',') : value
-    // );
+    if (Array.isArray(value)) {
+      selectedValues = value.map(option => option.value);
+    } else if (value) {
+      selectedValues = value.value;
+    }
+
+    setSelectedOption(
+      Array.isArray(selectedValues)
+        ? selectedValues
+        : selectedValues
+          ? [selectedValues]
+          : []
+    );
+
+    // Call the custom onChange handler if provided
+    if (onChange) {
+      onChange(selectedValues);
+    }
   };
 
   return (
-    <>
-      <Autocomplete
-        multiple={multiple}
-        limitTags={2}
-        id="tags-outlined"
-        options={options}
-        getOptionLabel={option => option.value}
-        filterSelectedOptions
-        renderOption={(props, option, { selected }) => (
-          <li {...props}>
-            <Checkbox
-              icon={icon}
-              checkedIcon={checkedIcon}
-              style={{ marginRight: 8 }}
-              checked={selected}
-            />
-            {option.value}
-          </li>
-        )}
-        // onChange={handleChange}
-        renderInput={params => <TextField {...params} label={inputLabel} />}
-      />
-    </>
+    <Autocomplete
+      multiple={multiple}
+      id="tags-outlined"
+      options={authors || []}
+      getOptionLabel={option => option.value}
+      filterSelectedOptions
+      loading={isFetching}
+      onInputChange={(event, newInputValue) => {
+        setInputValue(newInputValue);
+      }}
+      renderOption={(props, option, { selected }) => (
+        <li {...props}>
+          <Checkbox
+            icon={icon}
+            checkedIcon={checkedIcon}
+            style={{ marginRight: 8 }}
+            checked={selected}
+          />
+          {option.value}
+        </li>
+      )}
+      onChange={handleChange}
+      renderInput={params => (
+        <TextField
+          {...params}
+          label={inputLabel}
+          InputProps={{
+            ...params.InputProps,
+            endAdornment: (
+              <>
+                {isFetching ? (
+                  <CircularProgress color="inherit" size={20} />
+                ) : null}
+                {params.InputProps.endAdornment}
+              </>
+            )
+          }}
+        />
+      )}
+    />
   );
 };
 
