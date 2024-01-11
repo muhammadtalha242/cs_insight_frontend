@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { Footer } from 'antd/es/layout/layout';
-
 import { ConfigProvider, Layout } from 'antd';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 
@@ -39,6 +38,8 @@ const Routes = createBrowserRouter([
     element: <Search />
   }
 ]);
+const queryClient = new QueryClient();
+
 const App: React.FC = () => (
   <ConfigProvider
     theme={{
@@ -53,15 +54,17 @@ const App: React.FC = () => (
   >
     <Layout>
       <ContentStyledContainer>
-        <ThemeProvider theme={darkTheme}>
-          <ApplicationContextProvider>
-            <QueryContextProvider>
-              <FilterProvider>
-                <RouterProvider router={Routes} />
-              </FilterProvider>
-            </QueryContextProvider>
-          </ApplicationContextProvider>
-        </ThemeProvider>
+        <QueryClientProvider client={queryClient}>
+          <ThemeProvider theme={darkTheme}>
+            <ApplicationContextProvider>
+              <QueryContextProvider>
+                <FilterProvider>
+                  <RouterProvider router={Routes} />
+                </FilterProvider>
+              </QueryContextProvider>
+            </ApplicationContextProvider>
+          </ThemeProvider>
+        </QueryClientProvider>
       </ContentStyledContainer>
       {/* <Footer style={footerStyle}>Footer</Footer> */}
     </Layout>
