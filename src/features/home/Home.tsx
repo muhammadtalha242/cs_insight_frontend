@@ -23,6 +23,7 @@ const ContentStyledContainer = styled(Content)`
   background-color: #91caff;
   height: inherit;
   width: 100%;
+  height: 100vh;
 `;
 
 export type StateProps = {
