@@ -1,72 +1,51 @@
 module.exports = {
-    "env": {
-        "browser": true,
-        "es2021": true
+  env: {
+    browser: true,
+    es2021: true,
+    node: true,
+    es6: true
+  },
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:react/recommended',
+    'plugin:import/warnings',
+    'plugin:import/typescript',
+    'plugin:import/errors',
+    'prettier'
+  ],
+  settings: {
+    react: {
+      version: 'detect'
     },
-    "extends": [
-        "eslint:recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:react/recommended",
-        'plugin:import/warnings',
-        'plugin:import/typescript',
-        'plugin:import/errors',
-        'prettier'
-    ],
-    settings: {
-        'react': {
-          version: 'detect'
-        },
-        'import/extensions': ['.js', '.jsx', '.ts', '.tsx'],
-        'import/parsers': {
-          '@typescript-eslint/parser': ['.ts', '.tsx']
-        },
-        'import/ignore': ['node_modules'],
-        'import/resolver': {
-          typescript: {}
-        }
-      },
-      env: {
-        'es6': true,
-        'browser': true,
-        'node': true,
-      },
-    "overrides": [
-        {
-            "env": {
-                "node": true
-            },
-            "files": [
-                ".eslintrc.{js,cjs}"
-            ],
-            "parserOptions": {
-                "sourceType": "script"
-            }
-        }
-    ],
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        ecmaVersion: "latest",
-        sourceType: "module",
-        project: './tsconfig.json'
+    'import/extensions': ['.js', '.jsx', '.ts', '.tsx'],
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx']
     },
-    "plugins": [
-        "@typescript-eslint",
-        "react",
-        'import',
-        'prettier'
+    'import/ignore': ['node_modules'],
+    'import/resolver': {
+      typescript: {}
+    }
+  },
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    project: './tsconfig.json'
+  },
+  plugins: ['@typescript-eslint', 'react', 'import', 'prettier'],
+  rules: {
+    'consistent-return': 'off',
+    'no-irregular-whitespace': 'off',
+    'no-console': [
+      'warn',
+      {
+        allow: ['error', 'info']
+      }
     ],
-    "rules": {
-        'consistent-return': 'off',
-        'no-irregular-whitespace': 'off',
-        'no-console': [
-          'warn',
-          {
-            allow: ['error', 'info']
-          }
-        ],
-        "react/react-in-jsx-scope": "off",
-        'no-unused-vars': ['warn'],
-        'import/prefer-default-export': 'off',
+    'react/react-in-jsx-scope': 'off',
+    'no-unused-vars': ['warn'],
+    'import/prefer-default-export': 'off',
     'import/no-extraneous-dependencies': 'off',
     'import/namespace': [
       'warn',
@@ -152,11 +131,12 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/no-namespace': 'off',
     '@typescript-eslint/no-var-requires': 'off',
+    '@typescript-eslint/no-explicit-any': 'warn',
     'jest/no-conditional-expect': 'off',
     'import/order': [
       'error',
       {
-        'groups': [
+        groups: [
           'builtin',
           'external',
           'internal',
@@ -164,7 +144,7 @@ module.exports = {
           'sibling',
           'index'
         ],
-        'pathGroups': [
+        pathGroups: [
           {
             pattern: 'react',
             group: 'external',
@@ -185,58 +165,61 @@ module.exports = {
             position: 'after'
           }
         ],
-        'pathGroupsExcludedImportTypes': ['react'],
+        pathGroupsExcludedImportTypes: ['react'],
         'newlines-between': 'always',
-        'alphabetize': {
+        alphabetize: {
           order: 'asc',
           caseInsensitive: true
         }
       }
     ]
-    }, 
-    overrides: [
-        {
-          files: ['*.ts', '*.tsx'],
-          rules: {
-            '@typescript-eslint/no-use-before-define': 'error',
-            '@typescript-eslint/no-unused-vars':  'warn',
-            'no-unused-vars': 'off',
-            'no-undef': 'off',
-            '@typescript-eslint/no-var-requires': 'warn',
-            '@typescript-eslint/explicit-module-boundary-types': 'off',
-            'no-dupe-class-members': 'off',
-            'no-redeclare': 'off',
-            '@typescript-eslint/no-redeclare': ['error']
+  },
+  overrides: [
+    {
+      parserOptions: {
+        sourceType: 'script'
+      },
+      files: ['*.ts', '*.tsx', '.eslintrc.{js,cjs}'],
+      rules: {
+        '@typescript-eslint/no-use-before-define': 'error',
+        '@typescript-eslint/no-unused-vars': 'warn',
+        'no-unused-vars': 'off',
+        'no-undef': 'off',
+        '@typescript-eslint/no-var-requires': 'warn',
+        '@typescript-eslint/explicit-module-boundary-types': 'off',
+        'no-dupe-class-members': 'off',
+        'no-redeclare': 'off',
+        '@typescript-eslint/no-redeclare': ['error']
+      }
+    },
+    {
+      parser: 'espree',
+      files: ['config/*', 'webpack.*'],
+      plugins: ['node'],
+      extends: ['plugin:node/recommended'],
+      rules: {
+        'import/no-extraneous-dependencies': 'off',
+        'no-console': 'off',
+        'no-unused-vars': [
+          'warn',
+          {
+            ignoreRestSiblings: true
           }
-        },
-        {
-          parser: 'espree',
-          files: ['config/*', 'webpack.*'],
-          plugins: ['node'],
-          extends: ['plugin:node/recommended'],
-          rules: {
-            'import/no-extraneous-dependencies': 'off',
-            'no-console': 'off',
-            'no-unused-vars': [
-              'warn',
-              {
-                ignoreRestSiblings: true
-              }
-            ],
-            'node/no-unpublished-require': 'off',
-            'object-shorthand': 'warn',
-            '@typescript-eslint/no-var-requires': 'off'
-          },
-          env: {
-            node: true
-          }
-        },
-        {
-          files: ['*.test.*', '*.spec.*'],
-          rules: {
-            'no-unused-vars': 'warn',
-            'jest/expect-expect': 'warn'
-          }
-        }
-      ]
-}
+        ],
+        'node/no-unpublished-require': 'off',
+        'object-shorthand': 'warn',
+        '@typescript-eslint/no-var-requires': 'off'
+      },
+      env: {
+        node: true
+      }
+    },
+    {
+      files: ['*.test.*', '*.spec.*'],
+      rules: {
+        'no-unused-vars': 'warn',
+        'jest/expect-expect': 'warn'
+      }
+    }
+  ]
+};
