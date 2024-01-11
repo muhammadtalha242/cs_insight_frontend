@@ -4,13 +4,15 @@ export const ROUTE_REGISTER = 'register';
 export const ROUTE_ACCOUNT = 'account';
 export const ROUTE_PASSWORD = 'forgotpassword';
 export const ROUTE_PAPERS = 'papers';
-export const ROUTE_AUTHORS = 'authors';
-export const ROUTE_VENUES = 'venues';
+export const ROUTE_AUTHORS = 'authors' as const;
+export const ROUTE_VENUES = 'venues' as const;
 export const ROUTE_TYPES_OF_PAPER = 'types';
 export const ROUTE_FIELDS_OF_STUDY = 'fields';
 export const ROUTE_PUBLISHERS = 'publishers';
 export const ROUTE_CITATIONS = 'citations';
 export const ROUTE_TOPICS = 'topics';
+
+export type AUTOCOMPLETE_ROUTES = typeof ROUTE_AUTHORS | typeof ROUTE_VENUES;
 
 export const TYPES_OF_PAPER = [
   'article',
@@ -61,3 +63,5 @@ export const metrics = [
   { label: '#Citations', value: 'inCitationsCount' },
   { label: '#Papers', value: 'papersCount' }
 ] as const;
+
+export const API_BASE_URL = 'http://localhost:8080' as const;
