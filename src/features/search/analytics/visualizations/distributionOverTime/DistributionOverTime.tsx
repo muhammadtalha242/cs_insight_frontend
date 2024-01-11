@@ -1,6 +1,7 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import { Select } from 'antd';
+import { useQuery } from 'react-query';
 
 import VerticalBarChart from '../../../../../components/visulaizations/charts/BarChart';
 import LineChart from '../../../../../components/visulaizations/charts/LineChart';
@@ -8,45 +9,51 @@ import {
   CHART_TITLE,
   chart
 } from '../../../../../constants/visualizations/visualizations.types';
+import { QueryContext } from '../../../../../context/Query.context';
 import visualizationsService from '../../../../../services/visualizations';
 import VisualizationsContainer from '../VisualizationsContainer';
 
 const VISUALIZATIONS_OPTIONS = [
-  { label: CHART_TITLE.line, value: chart.LINE },
-  { label: CHART_TITLE.bar, value: chart.BAR }
+  { label: 'Publication Year', value: chart.LINE },
+  { label: 'Total Citations', value: chart.BAR }
 ];
 
 const DistributionOverTime: React.FC = () => {
+  const { state } = useContext(QueryContext);
+  const { data, isLoading, error } = useQuery(
+    ['myData', state.filters], // Query key is now an array
+    visualizationsService.getPapersCount
+  );
+
   const [currentVisualization, setCurrentVisualization] = useState(
     chart.LINE as string
   );
-  const [data, setData] = useState<{ count: number; year: number }[]>([]);
-
-  useLayoutEffect(() => {
-    const getData = async () => {
-      const graphData: { count: number; year: number }[] =
-        await visualizationsService.getPapersCount();
-
-      //TODO: useMemo here
-      //TODO: make it more generic
-      const dt = () =>
-        graphData.map(v => ({ count: Number(v.count), year: v.year }));
-
-      setData(dt);
-    };
-
-    getData();
-  }, []);
 
   const onSelectHandle = (value: string) => {
     setCurrentVisualization(value);
   };
 
+  let graphData: { count: number; year: number }[] = [];
+
+  if (!isLoading) {
+    const key =
+      currentVisualization === chart.LINE ? 'count' : 'totalCitations';
+
+    graphData = data.map(
+      (v: { count: number; totalCitations: number; year: number }) => {
+        return {
+          count: Number(v[key]),
+          year: v.year
+        };
+      }
+    );
+  }
+
   return (
-    <VisualizationsContainer>
+    <VisualizationsContainer isLoading={isLoading} error={error}>
       <div
         style={{
-          textAlign: 'end',
+          textAlign: 'start',
           marginBottom: '16px',
           paddingRight: '20px'
         }}
@@ -59,11 +66,11 @@ const DistributionOverTime: React.FC = () => {
         />
       </div>
       {currentVisualization === chart.LINE ? (
-        data.length !== 0 ? (
-          <LineChart data={data} />
+        graphData.length !== 0 ? (
+          <LineChart data={graphData} />
         ) : null
-      ) : data.length !== 0 ? (
-        <VerticalBarChart data={data} />
+      ) : graphData.length !== 0 ? (
+        <VerticalBarChart data={graphData} />
       ) : null}
     </VisualizationsContainer>
   );
