@@ -30,12 +30,12 @@ const VerticalBarChart: React.FC<VerticalBarChartProps> = ({ data }) => {
           <Label value="Years" position="bottom" />
         </XAxis>
         <YAxis>
-          <Label
+          {/* <Label
             value="Papers"
             angle={-90}
             textAnchor="middle"
             position="insideLeft"
-          />
+          /> */}
         </YAxis>
         {/* <Tooltip content={<CustomizedToolTipContent />} /> */}
         <Tooltip />
