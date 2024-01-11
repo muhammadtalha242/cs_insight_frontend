@@ -1,4 +1,10 @@
-import React, { ReactNode, useContext, useRef, useState } from 'react';
+import React, {
+  ReactNode,
+  useContext,
+  useEffect,
+  useRef,
+  useState
+} from 'react';
 
 import { ApplicationContext } from '../../../../context/Application.context';
 
@@ -6,10 +12,14 @@ import { VisualizationContainer } from './Visualizations.styles';
 
 type VisualizationsContainerProps = {
   children: ReactNode;
+  isLoading?: boolean;
+  error?: unknown;
 };
 
 const VisualizationsContainer: React.FC<VisualizationsContainerProps> = ({
-  children
+  children,
+  isLoading,
+  error
 }) => {
   const chartRef = useRef<HTMLDivElement>(null);
   const { state: applicationState } = useContext(ApplicationContext);
@@ -31,6 +41,8 @@ const VisualizationsContainer: React.FC<VisualizationsContainerProps> = ({
   //     );
   //   }
   // }, [isFiltersCollaped]);
+  if (isLoading) return <div>LOADING...</div>;
+  if (error) return <div>ERROR</div>;
 
   return (
     <VisualizationContainer ref={chartRef} height={dimensions.height}>
