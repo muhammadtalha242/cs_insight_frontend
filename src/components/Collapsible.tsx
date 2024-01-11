@@ -18,7 +18,6 @@ type CollapsibleProps = {
 const CollapsibleContainer = styled.div`
   border-top: 1px solid;
   border-bottom: 1px solid;
-  background-color: lightblue;
   padding: 8px;
 `;
 
@@ -28,22 +27,21 @@ const CollapsibleContainerHeader = styled.header`
   justify-content: space-between;
 
   &.open {
-    margin-bottom: ${Spacing.larger};
+    margin-bottom: 12px;
   }
 `;
 
 const LabelFilterContainer = styled.label`
   text-align: start;
-  font-size: medium;
   font-weight: 600;
-  margin-left: 8px;
+  margin-left: 4px;
 `;
 
 export const Collapsible: React.FC<CollapsibleProps> = ({
   children,
   title
 }) => {
-  const [isCollapsed, setIsCollapsed] = useState(true);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const handleClick = () => {
     setIsCollapsed(prev => !prev);
