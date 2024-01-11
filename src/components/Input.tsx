@@ -4,17 +4,26 @@ import { TextField } from '@mui/material';
 
 interface IInputProps {
   value?: string | number;
-  setValue?: () => void;
+  setValue?: (value: string | number) => void;
 }
 
-const Input: React.FC<IInputProps> = () => {
-  const onChangeHanlder = (e: React.ChangeEventHandler) => {
-    console.log(e);
+type IWrapperInputProps = IInputProps & React.ComponentProps<typeof TextField>;
+
+const Input: React.FC<IWrapperInputProps> = props => {
+  const { setValue } = props;
+  const onChangeHandler = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    console.log(event.target.value);
+
+    if (setValue) {
+      setValue(event.target.value);
+    }
   };
 
   return (
     <>
-      <TextField onChange={onChangeHanlder} />
+      <TextField onChange={onChangeHandler} {...props} />
     </>
   );
 };
