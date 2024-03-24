@@ -6,13 +6,22 @@ export const ROUTE_PASSWORD = 'forgotpassword';
 export const ROUTE_PAPERS = 'papers';
 export const ROUTE_AUTHORS = 'authors' as const;
 export const ROUTE_VENUES = 'venues' as const;
-export const ROUTE_TYPES_OF_PAPER = 'types';
-export const ROUTE_FIELDS_OF_STUDY = 'fields';
+export const ROUTE_TYPES_OF_PAPER = 'typesOfPaper';
+export const ROUTE_FIELDS_OF_STUDY = 'fieldsOfStudy';
 export const ROUTE_PUBLISHERS = 'publishers';
 export const ROUTE_CITATIONS = 'citations';
+export const ROUTE_ACCESS_TYPES = 'accessTypes';
 export const ROUTE_TOPICS = 'topics';
 
-export type AUTOCOMPLETE_ROUTES = typeof ROUTE_AUTHORS | typeof ROUTE_VENUES;
+export type AUTOCOMPLETE_ROUTES =
+  | typeof ROUTE_AUTHORS
+  | typeof ROUTE_VENUES
+  | typeof ROUTE_PUBLISHERS
+  | typeof ROUTE_TOPICS
+  | typeof ROUTE_FIELDS_OF_STUDY
+  | typeof ROUTE_TYPES_OF_PAPER
+  | typeof ROUTE_CITATIONS
+  | typeof ROUTE_ACCESS_TYPES;
 
 export const TYPES_OF_PAPER = [
   'article',
