@@ -16,7 +16,6 @@ import { autocomplete } from '../services/autocomplete';
 
 interface IOption {
   key: string;
-  id?: string;
   value: string;
 }
 
