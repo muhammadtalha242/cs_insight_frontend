@@ -16,6 +16,7 @@ import { autocomplete } from '../services/autocomplete';
 
 interface IOption {
   key: string;
+  id?: string;
   value: string;
 }
 
@@ -32,17 +33,20 @@ const Select: React.FC<ISelectProps> = ({
   options,
   multiple,
   inputLabel,
+  route,
   onChange
 }) => {
   const [selectedOption, setSelectedOption] = React.useState<string[]>([]);
   const [inputValue, setInputValue] = React.useState('');
-  const { data: authors, isFetching } = useQuery(
-    ['authors', inputValue],
-    () => autocomplete({ route: 'authors', inputValue }),
+  const { data, isFetching } = useQuery(
+    ['routes', inputValue],
+    () => autocomplete({ route, inputValue }),
     {
       enabled: inputValue.length > 1
     }
   );
+
+  console.log('data', data);
 
   const handleChange = (
     event: React.SyntheticEvent,
@@ -50,6 +54,8 @@ const Select: React.FC<ISelectProps> = ({
     reason: string
   ) => {
     let selectedValues: string[] | string | null = null;
+
+    console.log('value', value);
 
     if (Array.isArray(value)) {
       selectedValues = value.map(option => option.value);
@@ -75,7 +81,7 @@ const Select: React.FC<ISelectProps> = ({
     <Autocomplete
       multiple={multiple}
       id="tags-outlined"
-      options={authors || []}
+      options={data || options}
       getOptionLabel={option => option.value}
       filterSelectedOptions
       loading={isFetching}
@@ -83,15 +89,7 @@ const Select: React.FC<ISelectProps> = ({
         setInputValue(newInputValue);
       }}
       renderOption={(props, option, { selected }) => (
-        <li {...props}>
-          <Checkbox
-            icon={icon}
-            checkedIcon={checkedIcon}
-            style={{ marginRight: 8 }}
-            checked={selected}
-          />
-          {option.value}
-        </li>
+        <li {...props}>{option.value}</li>
       )}
       onChange={handleChange}
       renderInput={params => (
