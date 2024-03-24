@@ -9,7 +9,7 @@ const autocomplete = async ({ route, inputValue }: autocompleteProps) => {
 
   try {
     const response = await axios.get(
-      `${API_BASE_URL}/search/${route}?q=${inputValue}`
+      `${API_BASE_URL}/autocomplete/${route}?q=${inputValue}`
     );
 
     return response.data;
