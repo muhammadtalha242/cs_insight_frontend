@@ -30,20 +30,16 @@ export const Filter: React.FC<SiderProps> = ({ collapsed, children }) => {
 
   const typesOfPapers = TYPES_OF_PAPER.map(type => ({
     value: type,
-    key: type.toLocaleUpperCase()
+    key: type
   }));
 
-  const authors = TYPES_OF_PAPER.map(type => ({
-    value: type,
-    key: type.toLocaleUpperCase()
-  }));
   const fieldsOfStudy = FIELDS_OF_STUDY.map(type => ({
     value: type,
-    key: type.toLocaleUpperCase()
+    key: type
   }));
   const accessTypes = ACCESS_TYPE.map(type => ({
     value: type,
-    key: type.toLocaleUpperCase()
+    key: type
   }));
 
   const handleChange = (
@@ -128,24 +124,24 @@ export const Filter: React.FC<SiderProps> = ({ collapsed, children }) => {
             route="authors"
             inputLabel="Authors"
             multiple
-            options={authors}
+            options={[]}
             onChange={handleSelectChange('authors')}
           />
         </Collapsible>
 
         <Collapsible title="Venues">
           <SelectCustom
-            route="authors"
+            route="venues"
             inputLabel="Venues"
             multiple
-            options={authors}
+            options={[]}
             onChange={handleSelectChange('venues')}
           />
         </Collapsible>
 
         <Collapsible title="Types of papers">
           <SelectCustom
-            route="authors"
+            route="typesOfPaper"
             inputLabel="Types of papers"
             multiple
             onChange={handleSelectChange('typesOfPaper')}
@@ -154,7 +150,7 @@ export const Filter: React.FC<SiderProps> = ({ collapsed, children }) => {
         </Collapsible>
         <Collapsible title="Field of Study">
           <SelectCustom
-            route="authors"
+            route="fieldsOfStudy"
             inputLabel="Field of Study"
             multiple
             onChange={handleSelectChange('fieldsOfStudy')}
@@ -163,16 +159,16 @@ export const Filter: React.FC<SiderProps> = ({ collapsed, children }) => {
         </Collapsible>
         <Collapsible title="Publishers">
           <SelectCustom
-            route="authors"
+            route="publishers"
             inputLabel="Publishers"
             multiple
             onChange={handleSelectChange('publishers')}
-            options={fieldsOfStudy}
+            options={[]}
           />
         </Collapsible>
         <Collapsible title="Access Type">
           <SelectCustom
-            route="authors"
+            route="accessTypes"
             inputLabel="Access Type"
             multiple
             onChange={handleSelectChange('accessType')}
