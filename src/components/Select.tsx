@@ -1,18 +1,9 @@
 import * as React from 'react';
 
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import {
-  Autocomplete,
-  Checkbox,
-  TextField,
-  CircularProgress
-} from '@mui/material';
-
-import { useQuery } from 'react-query';
+import { Autocomplete, TextField, CircularProgress } from '@mui/material';
 
 import { AUTOCOMPLETE_ROUTES } from '../constants/consts';
-import { autocomplete } from '../services/autocomplete';
+import { useAutocomplete } from '../services/autocomplete';
 
 interface IOption {
   key: string;
@@ -26,8 +17,7 @@ interface ISelectProps {
   inputLabel: string;
   onChange?: (selectedOptions: string[] | string | null) => void; // Updated type to match the Autocomplete's expectation
 }
-const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
-const checkedIcon = <CheckBoxIcon fontSize="small" />;
+
 const Select: React.FC<ISelectProps> = ({
   options,
   multiple,
@@ -35,29 +25,18 @@ const Select: React.FC<ISelectProps> = ({
   route,
   onChange
 }) => {
-  const [selectedOption, setSelectedOption] = React.useState<string[]>([]);
+  const [, setSelectedOption] = React.useState<string[]>([]);
   const [inputValue, setInputValue] = React.useState('');
-  const { data, isFetching } = useQuery(
-    ['routes', inputValue],
-    () => autocomplete({ route, inputValue }),
-    {
-      enabled: inputValue.length > 1
-    }
-  );
-
-  console.log('data', data);
+  const { data, isFetching } = useAutocomplete({ route, inputValue });
 
   const handleChange = (
-    event: React.SyntheticEvent,
-    value: IOption[] | IOption | null,
-    reason: string
+    _: React.SyntheticEvent,
+    value: IOption[] | IOption | null
   ) => {
     let selectedValues: string[] | string | null = null;
 
-    console.log('value', value);
-
     if (Array.isArray(value)) {
-      selectedValues = value.map(option => option.value);
+      selectedValues = value.map(option => option.key);
     } else if (value) {
       selectedValues = value.value;
     }
@@ -70,7 +49,6 @@ const Select: React.FC<ISelectProps> = ({
           : []
     );
 
-    // Call the custom onChange handler if provided
     if (onChange) {
       onChange(selectedValues);
     }
@@ -84,12 +62,10 @@ const Select: React.FC<ISelectProps> = ({
       getOptionLabel={option => option.value}
       filterSelectedOptions
       loading={isFetching}
-      onInputChange={(event, newInputValue) => {
-        setInputValue(newInputValue);
+      onInputChange={(_, newInputValue) => {
+        setInputValue(newInputValue.trim());
       }}
-      renderOption={(props, option, { selected }) => (
-        <li {...props}>{option.value}</li>
-      )}
+      renderOption={(props, option) => <li {...props}>{option.value}</li>}
       onChange={handleChange}
       renderInput={params => (
         <TextField
