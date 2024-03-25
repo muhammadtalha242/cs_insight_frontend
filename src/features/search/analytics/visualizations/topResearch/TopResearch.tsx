@@ -1,4 +1,4 @@
-import React, { useContext, useLayoutEffect, useState } from 'react';
+import React, { useContext } from 'react';
 
 import { useQuery } from 'react-query';
 
@@ -13,6 +13,10 @@ const TopResearch: React.FC = () => {
     ['myData', state.filters], // Query key is now an array
     visualizationsService.getPapersCount
   );
+  const { data: data2 } = useQuery(
+    ['myData2', state.filters], // Query key is now an array
+    () => visualizationsService.getPapersCountPost(state.filters)
+  );
   let graphData: { count: number; year: number }[] = [];
 
   if (!isLoading) {
@@ -21,6 +25,8 @@ const TopResearch: React.FC = () => {
       year: v.year
     }));
   }
+
+  console.log('data2', data);
 
   return (
     <VisualizationsContainer isLoading={isLoading} error={error}>
