@@ -51,8 +51,8 @@ export const Filter: React.FC<SiderProps> = ({ collapsed, children }) => {
   const handleSelectChange =
     (
       name:
-        | 'authors'
-        | 'venues'
+        | 'authorIds'
+        | 'venueIds'
         | 'typesOfPaper'
         | 'fieldsOfStudy'
         | 'publishers'
@@ -125,7 +125,7 @@ export const Filter: React.FC<SiderProps> = ({ collapsed, children }) => {
             inputLabel="Authors"
             multiple
             options={[]}
-            onChange={handleSelectChange('authors')}
+            onChange={handleSelectChange('authorIds')}
           />
         </Collapsible>
 
@@ -135,7 +135,7 @@ export const Filter: React.FC<SiderProps> = ({ collapsed, children }) => {
             inputLabel="Venues"
             multiple
             options={[]}
-            onChange={handleSelectChange('venues')}
+            onChange={handleSelectChange('venueIds')}
           />
         </Collapsible>
 
