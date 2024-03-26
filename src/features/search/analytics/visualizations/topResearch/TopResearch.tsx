@@ -9,11 +9,11 @@ import VisualizationsContainer from '../VisualizationsContainer';
 
 const TopResearch: React.FC = () => {
   const { state } = useContext(QueryContext);
+  // const { data, isLoading, error } = useQuery(
+  //   ['myData', state.filters], // Query key is now an array
+  //   visualizationsService.getPapersCount
+  // );
   const { data, isLoading, error } = useQuery(
-    ['myData', state.filters], // Query key is now an array
-    visualizationsService.getPapersCount
-  );
-  const { data: data2 } = useQuery(
     ['myData2', state.filters], // Query key is now an array
     () => visualizationsService.getPapersCountPost(state.filters)
   );
