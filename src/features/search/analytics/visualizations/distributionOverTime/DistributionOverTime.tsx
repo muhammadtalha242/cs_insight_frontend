@@ -5,10 +5,7 @@ import { useQuery } from 'react-query';
 
 import VerticalBarChart from '../../../../../components/visulaizations/charts/BarChart';
 import LineChart from '../../../../../components/visulaizations/charts/LineChart';
-import {
-  CHART_TITLE,
-  chart
-} from '../../../../../constants/visualizations/visualizations.types';
+import { chart } from '../../../../../constants/visualizations/visualizations.types';
 import { QueryContext } from '../../../../../context/Query.context';
 import visualizationsService from '../../../../../services/visualizations';
 import VisualizationsContainer from '../VisualizationsContainer';
@@ -20,11 +17,15 @@ const VISUALIZATIONS_OPTIONS = [
 
 const DistributionOverTime: React.FC = () => {
   const { state } = useContext(QueryContext);
-  const { data, isLoading, error } = useQuery(
-    ['myData', state.filters], // Query key is now an array
-    visualizationsService.getPapersCount
-  );
+  // const { data, isLoading, error } = useQuery(
+  //   ['myData', state.filters], // Query key is now an array
+  //   visualizationsService.getPapersCount
+  // );
 
+  const { data, isLoading, error } = useQuery(
+    ['myData2', state.filters], // Query key is now an array
+    () => visualizationsService.getPapersCountPost(state.filters)
+  );
   const [currentVisualization, setCurrentVisualization] = useState(
     chart.LINE as string
   );
