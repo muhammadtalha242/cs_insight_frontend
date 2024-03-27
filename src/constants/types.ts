@@ -58,8 +58,8 @@ export type Filter = {
   yearEnd: string;
   citationsMin: string;
   citationsMax: string;
-  authors: AuthorFilter[];
-  venues: VenueFilter[];
+  authorIds: AuthorFilter[];
+  venueIds: VenueFilter[];
   accessType: string | null;
   typesOfPaper: string[];
   fieldsOfStudy: string[];
