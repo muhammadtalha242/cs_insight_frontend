@@ -1,6 +1,7 @@
 import React, { useCallback, useContext } from 'react';
 
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+import { Tab } from '@mui/material';
 
 import { Button } from 'antd';
 import type { TabsProps } from 'antd';
@@ -32,6 +33,7 @@ import Analytics from './analytics';
 import {
   MainContentContainer,
   SearchLayoutContainer,
+  StyledTabs,
   VisualizationsTabContainer
 } from './Search.styles';
 import SearchResults from './searchResults';
@@ -149,6 +151,12 @@ export const Search: React.FC = () => {
           defaultActiveKey="analytics"
           items={SEARCH_ITEMS}
           onChange={onChange}
+          flex={isFiltersCollaped ? 1 : 4}
+        />
+        <StyledTabs
+          // defaultActiveKey="analytics"
+          // items={SEARCH_ITEMS}
+          // onChange={onChange}
           flex={isFiltersCollaped ? 1 : 4}
         />
         <Filter collapsed={isFiltersCollaped} />
