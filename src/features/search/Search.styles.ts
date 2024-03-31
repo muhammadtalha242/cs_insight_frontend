@@ -1,3 +1,5 @@
+import { styled as MUIStyled, Tab } from '@mui/material';
+
 import { Tabs } from 'antd';
 import styled from 'styled-components';
 
@@ -20,3 +22,9 @@ export const VisualizationsTabContainer = styled(
   transition: flex-basis 0.5s ease;
   flex: ${props => props.flex};
 `;
+
+export const StyledTabs = MUIStyled(Tab)<VisualizationsTabContainerStyleProps>({
+  padding: '0 ${Size.xl} 0 ${Size.lm}',
+  transition: 'flex-basis 0.5s ease',
+  flex: `${(props: VisualizationsTabContainerStyleProps) => props.flex}`
+});
